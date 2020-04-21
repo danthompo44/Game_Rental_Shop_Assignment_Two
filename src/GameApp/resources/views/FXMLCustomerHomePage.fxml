@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="GameApp.java.controllers.FXMLCustomerHomePageController"
+            styleClass="Window">
+    <top>
+        <HBox>
+            <Label text="Available Products" styleClass="Heading"/>
+            <Button text="Colleague Sign In" onAction="#handleColleagueSignInAction"/>
+        </HBox>
+    </top>
+    <center>
+        <HBox>
+            <VBox>
+                <Label text="Consoles" fx:id="consolesLabel"/>
+                <ScrollPane>
+                    <ListView fx:id="consolesOutput" onMouseClicked="#handleSelectConsoleMouseClickAction"/>
+                </ScrollPane>
+            </VBox>
+            <VBox>
+                <Label fx:id="gamesLabel"/>
+                <ScrollPane>
+                        <ListView fx:id="gamesOutput"/>
+                </ScrollPane>
+            </VBox>
+        </HBox>
+    </center>
+    <bottom>
+        <HBox>
+            <CheckBox text="Games By Console" fx:id="gamesByConsoleCheckbox" onAction="#handleGamesByConsoleCheckboxAction"/>
+        </HBox>
+    </bottom>
+</BorderPane>

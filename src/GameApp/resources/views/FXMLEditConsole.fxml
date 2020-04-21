@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="GameApp.java.controllers.FXMLEditConsoleController"
+            styleClass="Window">
+    <top>
+        <HBox>
+            <Label styleClass="Heading" text="Edit Console"/>
+        </HBox>
+    </top>
+    <center>
+        <VBox>
+            <VBox>
+                <HBox>
+                    <Label text="Product ID"/>
+                    <TextField fx:id="id" editable="false"/>
+                </HBox>
+                <HBox>
+                    <Label text="Description"/>
+                    <TextField fx:id="description"/>
+                </HBox>
+                <HBox>
+                    <Label text="Cost (£)"/>
+                    <TextField fx:id="cost"/>
+                </HBox>
+                <HBox>
+                    <Label text="Bit Depth"/>
+                    <TextField fx:id="bitDepth" editable="false"/>
+                </HBox>
+                <HBox>
+                    <Label text="Form Factor"/>
+                    <TextField fx:id="formFactor" editable="false"/>
+                </HBox>
+            </VBox>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox>
+            <CheckBox text="Being Repaired?" fx:id="repair"/>
+            <CheckBox text="On Loan?" fx:id="rented" disable="true"/>
+            <Button text="Back" onAction="#handleBackAction"/>
+            <Button text="Submit" onAction="#handleSubmitAction"/>
+        </HBox>
+    </bottom>
+</BorderPane>

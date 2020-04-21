@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="GameApp.java.controllers.FXMLEditCustomerController"
+            styleClass="Window">
+    <top>
+        <HBox>
+            <Label styleClass="Heading" text="Edit Customer"/>
+        </HBox>
+    </top>
+    <center>
+        <VBox>
+            <HBox>
+                <Label text="Customer ID"/>
+                <TextField fx:id="id" editable="false"/>
+            </HBox>
+            <HBox>
+                <Label text="First Name"/>
+                <TextField fx:id="firstName" editable="false"/>
+            </HBox>
+            <HBox>
+                <Label text="Surname"/>
+                <TextField fx:id="surname" editable="false"/>
+            </HBox>
+            <HBox>
+                <Label text="Address"/>
+                <TextField fx:id="address"/>
+            </HBox>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox>
+            <Button text="Back" onAction="#handleBackAction"/>
+            <Button text="Submit" onAction="#handleSubmitAction"/>
+        </HBox>
+    </bottom>
+</BorderPane>

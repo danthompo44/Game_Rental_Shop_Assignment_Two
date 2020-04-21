@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="GameApp.java.controllers.FXMLShowConsolesController"
+            styleClass="Window">
+    <top>
+        <HBox>
+            <Label styleClass="Heading" fx:id="heading"/>
+        </HBox>
+    </top>
+    <center>
+            <HBox>
+                <VBox>
+                    <Label text="Consoles"/>
+                    <ScrollPane>
+                        <ListView fx:id="consoles"/>
+                    </ScrollPane>
+                </VBox>
+                <VBox>
+                    <CheckBox text="Show Consoles Being Repaired" fx:id="repaired" onAction="#handleRepairedCheckboxAction"/>
+                    <CheckBox text="Show Consoles Out On Loan" fx:id="loaned" onAction="#handleRentedCheckboxAction"/>
+                </VBox>
+            </HBox>
+    </center>
+    <bottom>
+        <HBox>
+
+            <Button text="Back" onAction="#handleBackAction"/>
+            <Button text="Edit Selected Console" onAction="#handleEditAction"/>
+            <Button text="Delete Selected Console" onAction="#handleDeleteAction"/>
+        </HBox>
+    </bottom>
+</BorderPane>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="GameApp.java.controllers.FXMLShowRentalController"
+            styleClass="Window">
+    <top>
+        <HBox>
+            <Label text="Show Rental" styleClass="Heading"/>
+        </HBox>
+    </top>
+    <center>
+        <VBox>
+            <HBox>
+                <Label text="Customer Name"/>
+                <TextField fx:id="customerName" editable="false"/>
+                <Label text="Rental ID"/>
+                <TextField fx:id="rentalID" editable="false"/>
+            </HBox>
+            <HBox>
+                <Label text="Return Date:"/>
+                <TextField fx:id="returnDate" editable="false"/>
+                <Label text="Total Cost at Rental Date (£):"/>
+                <TextField fx:id="totalCost" editable="false"/>
+            </HBox>
+            <VBox>
+                <ListView fx:id="rentalItems"/>
+            </VBox>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox>
+            <CheckBox fx:id="returnRentalCheckbox" text="Return Rental?"/>
+            <Button text="Back" onAction="#handleBackAction"/>
+            <Button text="Confirm" onAction="#handleConfirmAction"/>
+        </HBox>
+    </bottom>
+</BorderPane>

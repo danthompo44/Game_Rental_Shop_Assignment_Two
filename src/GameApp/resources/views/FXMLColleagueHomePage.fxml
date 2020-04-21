@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="GameApp.java.controllers.FXMLColleagueHomePageController"
+            styleClass="Window">
+    <top>
+        <HBox>
+            <Label text="Colleague Home Page" styleClass="Heading"/>
+            <Button text="Sign Out" onAction="#handleSignOutAction"/>
+        </HBox>
+    </top>
+    <center>
+        <VBox>
+            <Label text="All Current Customers"/>
+            <ScrollPane>
+                <ListView fx:id="customers"/>
+            </ScrollPane>
+        </VBox>
+    </center>
+    <right>
+        <VBox>
+            <Label text="Selected Customer Options:"/>
+            <Button text="Create Rental" onAction="#handleCreateRentalAction"/>
+            <Button text="Edit Customer" onAction="#handleEditCustomerAction"/>
+            <Button text="Show/Return Rental" onAction="#handleShowRentalAction"/>
+            <Button text="Delete Customer" onAction="#handleDeleteAction"/>
+        </VBox>
+    </right>
+    <bottom>
+        <HBox>
+            <Button text="Add Customer" onAction="#handleAddCustomersAction"/>
+            <Button text="Show All Consoles" onAction="#handleShowConsolesAction"/>
+            <Button text="Show All Games" onAction="#handleShowGamesAction"/>
+        </HBox>
+    </bottom>
+</BorderPane>

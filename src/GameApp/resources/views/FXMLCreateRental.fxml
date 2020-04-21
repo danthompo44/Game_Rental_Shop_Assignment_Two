@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="GameApp.java.controllers.FXMLCreateRentalController"
+            styleClass="Window">
+    <top>
+        <HBox>
+            <Button text="Back" onAction="#handleBackAction"/>
+            <Label styleClass="Heading" text="Create Rental"/>
+        </HBox>
+    </top>
+    <center>
+        <VBox>
+            <HBox>
+                <Label text="Customer ID"/>
+                <TextField fx:id="customerID" editable="false"/>
+            </HBox>
+            <HBox>
+                <Label text="Customer Name"/>
+                <TextField fx:id="customerName" editable="false"/>
+            </HBox>
+            <HBox>
+                <Label text="Address"/>
+                <TextField fx:id="addressField" editable="false"/>
+            </HBox>
+            <HBox>
+                <VBox>
+                    <Label text="Consoles"/>
+                    <ScrollPane>
+                            <ListView fx:id="consoles" onMouseClicked="#handleConsoleListViewAction"/>
+                    </ScrollPane>
+                </VBox>
+                <VBox>
+                    <Label text="Games"/>
+                    <ScrollPane>
+                            <ListView fx:id="games"/>
+                    </ScrollPane>
+                </VBox>
+                <VBox>
+                    <Label text="Basket"/>
+                    <ScrollPane>
+                            <ListView fx:id="basketView"/>
+                    </ScrollPane>
+                </VBox>
+            </HBox>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox>
+            <CheckBox text="Show All Available Games" fx:id="showAllGamesCheckbox" onAction="#handleShowAllGamesCheckboxAction"/>
+            <CheckBox text="Console Required?" fx:id="consoleCheckbox"/>
+            <Button text="Remove From Basket" onAction="#handleRemoveFromBasketAction"/>
+            <Button text="Add To Basket" onAction="#handleAddToBasketAction"/>
+            <Button text="Submit" fx:id="submit" onAction="#handleSubmitAction"/>
+        </HBox>
+    </bottom>
+</BorderPane>

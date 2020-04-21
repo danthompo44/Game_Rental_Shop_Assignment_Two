@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="GameApp.java.controllers.FXMLColleagueSignInController"
+            styleClass="Window">
+    <top>
+        <HBox>
+            <Label text="Colleague Sign In" styleClass="Heading"/>
+        </HBox>
+    </top>
+    <center>
+        <VBox>
+            <TextField promptText="Username" fx:id="username"/>
+            <PasswordField promptText="Password" fx:id="password"/>
+            <Label fx:id="incorrectDetailsLabel" textFill="crimson"/>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox>
+            <Button text="Back" onAction="#handleBackAction"/>
+            <Button text="Submit" fx:id="submit" onAction="#handleSubmitAction"/>
+        </HBox>
+    </bottom>
+</BorderPane>
