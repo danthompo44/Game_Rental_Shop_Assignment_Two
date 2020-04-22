@@ -37,7 +37,7 @@ class GameTest {
     }
     @Test
     void getCostReturnsExpectedCost(){
-        Assertions.assertEquals(14.99, gamePR1009.getCost());
+        Assertions.assertEquals(14.99, gamePR1009.getRentalCost());
     }
     @Test
     void isRentedReturnsExpectedBoolean(){
@@ -51,9 +51,9 @@ class GameTest {
     }
     @Test
     void setCostAllowsForTheSettingOfCost(){
-        Assertions.assertEquals(14.99, gamePR1009.getCost());
-        gamePR1009.setCost(9.99);
-        Assertions.assertEquals(9.99, gamePR1009.getCost());
+        Assertions.assertEquals(14.99, gamePR1009.getRentalCost());
+        gamePR1009.setRentalCost(9.99);
+        Assertions.assertEquals(9.99, gamePR1009.getRentalCost());
     }
     @Test
     void setDescriptionAllowsForTheSettingOfTheDescription(){

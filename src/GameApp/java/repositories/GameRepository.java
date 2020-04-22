@@ -56,7 +56,7 @@ public class GameRepository {
             if (g.getId().equals(game.getId())) {
                 g.setDescription(game.getDescription());
                 g.setIsRented(game.isRented());
-                g.setCost(game.getCost());
+                g.setRentalCost(game.getRentalCost());
                 g.setIsBeingRepaired(game.isBeingRepaired());
             }
         }

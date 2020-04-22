@@ -19,6 +19,6 @@ public class ConsoleViewAdapter {//Used to allow the Controller classes to have 
     }
 
     public static void getConsoleDetails(Console c, IConsoleCommunication cc){
-        cc.consoleDetailsToEdit(c.getId(), c.getDescription(), c.getCost(), c.getBitDepth(), c.getFormFactor(), c.isRented(), c.isBeingRepaired());
+        cc.consoleDetailsToEdit(c.getId(), c.getDescription(), c.getRentalCost(), c.getBitDepth(), c.getFormFactor(), c.isRented(), c.isBeingRepaired());
     }
 }

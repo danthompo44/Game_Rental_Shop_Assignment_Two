@@ -2,21 +2,21 @@ package GameApp.java.models;
 
 import GameApp.java.general.CostFormatter;
 
-public class Game implements IProduct {
+public class Game implements IProductRental {
     private Console console;
     private ProductDetails details;
     private boolean isRented;
     private boolean isBeingRepaired;
 
-    public Game(String description, double cost, Console console, boolean isRented, boolean isBeingRepaired) {
-        details = new ProductDetails(description, cost);
+    public Game(String description, double rentalCost, Console console, boolean isRented, boolean isBeingRepaired) {
+        details = new ProductDetails(description, rentalCost);
         this.console = console;
         this.isRented = isRented;
         this.isBeingRepaired = isBeingRepaired;
     }
 
-    public Game(String id, String description, double cost, Console console, boolean isRented, boolean isBeingRepaired){
-        details = new ProductDetails(id, description, cost);
+    public Game(String id, String description, double rentalCost, Console console, boolean isRented, boolean isBeingRepaired){
+        details = new ProductDetails(id, description, rentalCost);
         this.console = console;
         this.isRented = isRented;
         this.isBeingRepaired = isBeingRepaired;
@@ -32,8 +32,8 @@ public class Game implements IProduct {
     }
 
     @Override
-    public double getCost() {
-        return details.getCost();
+    public double getRentalCost() {
+        return details.getRentalCost();
     }
 
     public Console getConsole(){
@@ -51,8 +51,8 @@ public class Game implements IProduct {
     }
 
     @Override
-    public void setCost(double cost) {
-        details.setCost(cost);
+    public void setRentalCost(double cost) {
+        details.setRentalCost(cost);
     }
 
     @Override
@@ -90,6 +90,6 @@ public class Game implements IProduct {
         return String.format("Product ID:  %s\n" +
                 "Description:  %s\n" +
                 "Cost:  £%s\n" +
-                "Game's Platform:  %s", details.getId(), details.getDescription(), CostFormatter.format(details.getCost()), console.getDescription());
+                "Game's Platform:  %s", details.getId(), details.getDescription(), CostFormatter.format(details.getRentalCost()), console.getDescription());
     }
 }

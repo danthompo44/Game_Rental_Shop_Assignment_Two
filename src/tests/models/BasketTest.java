@@ -1,4 +1,4 @@
-package tests.models.validators;
+package tests.models;
 
 import GameApp.java.models.Basket;
 import GameApp.java.models.Console;

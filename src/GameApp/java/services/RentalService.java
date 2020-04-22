@@ -2,7 +2,7 @@ package GameApp.java.services;
 
 import GameApp.java.general.exceptions.DoesNotExistException;
 import GameApp.java.models.Customer;
-import GameApp.java.models.IProduct;
+import GameApp.java.models.IProductRental;
 import GameApp.java.models.Rental;
 import GameApp.java.repositories.RentalRepository;
 
@@ -31,7 +31,7 @@ public class RentalService {
 
     private static Rental createRentalFromParameters(Object... args){
         Customer customer = (Customer) args[0];
-        ArrayList<IProduct> products = (ArrayList<IProduct>) args[1];
+        ArrayList<IProductRental> products = (ArrayList<IProductRental>) args[1];
 
         return new Rental(customer, products);
     }

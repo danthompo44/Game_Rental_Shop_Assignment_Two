@@ -22,9 +22,9 @@ public class TestData {//holds all data used for testing
     public final Customer customerFourC1 = new Customer("Test", "Four", "Address Four");
     public final Customer customerTwoC2Edit = new Customer("CU1012", "Test", "Two", "Address Two Edited");
 
-    public final ArrayList<IProduct> productListOneConsoleThreeGames = new ArrayList<IProduct>();
-    public final ArrayList<IProduct> productListNoConsoleThreeGames = new ArrayList<IProduct>();
-    public final ArrayList<IProduct> productListOneConsoleNoGames = new ArrayList<IProduct>();
+    public final ArrayList<IProductRental> productListOneConsoleThreeGames = new ArrayList<IProductRental>();
+    public final ArrayList<IProductRental> productListNoConsoleThreeGames = new ArrayList<IProductRental>();
+    public final ArrayList<IProductRental> productListOneConsoleNoGames = new ArrayList<IProductRental>();
     public Rental rentalOne;
     public Rental rentalTwo;
     public Rental rentalThree;

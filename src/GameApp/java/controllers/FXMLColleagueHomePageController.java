@@ -42,7 +42,7 @@ public class FXMLColleagueHomePageController implements Initializable {
                     AlertMessage.showMessage(Alert.AlertType.INFORMATION, "Customer already has a rental!");
                 }
             }
-            else{//displays message if a customer hasn'nt been selected
+            else{//displays message if a customer hasn't been selected
                 AlertMessage.showMessage(Alert.AlertType.INFORMATION, "Please select a customer to begin creating a rental!");
             }
         }

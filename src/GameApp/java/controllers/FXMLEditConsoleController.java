@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
 
 public class FXMLEditConsoleController implements Initializable, IConsoleCommunication {
     private Router router = new Router();
+
     @FXML
     private TextField id, description, cost, bitDepth, formFactor;
     @FXML

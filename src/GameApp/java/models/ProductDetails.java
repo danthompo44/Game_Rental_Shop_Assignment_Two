@@ -4,18 +4,18 @@ public class ProductDetails {
     private String id;
     private static int idSeed = 1000;
     private String description;
-    private double cost;
+    private double rentalCost;
 
-    public ProductDetails(String description, double cost){
+    public ProductDetails(String description, double rentalCost){
         this.id = "PR" + idSeed;
         this.description = description;
-        this.cost = cost;
+        this.rentalCost = rentalCost;
         idSeed++;
     }
-    public ProductDetails(String id, String description, double cost){
+    public ProductDetails(String id, String description, double rentalCost){
         this.id = id;
         this.description = description;
-        this.cost = cost;
+        this.rentalCost = rentalCost;
     }
 
     public String getId() {
@@ -30,11 +30,11 @@ public class ProductDetails {
         this.description = description;
     }
 
-    public double getCost() {
-        return cost;
+    public double getRentalCost() {
+        return rentalCost;
     }
 
-    public void setCost(double cost) {
-        this.cost = cost;
+    public void setRentalCost(double rentalCost) {
+        this.rentalCost = rentalCost;
     }
 }

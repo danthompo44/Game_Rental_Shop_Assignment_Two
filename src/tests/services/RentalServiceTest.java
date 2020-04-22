@@ -1,7 +1,7 @@
 package tests.services;
 
 import GameApp.java.models.Customer;
-import GameApp.java.models.IProduct;
+import GameApp.java.models.IProductRental;
 import GameApp.java.models.Rental;
 import GameApp.java.services.RentalService;
 import org.junit.jupiter.api.Assertions;
@@ -18,7 +18,7 @@ public class RentalServiceTest {
     final Rental r2 = data.rentalTwo;
     final Customer c1 = data.customerOneC1;
     final Customer c2 = data.customerTwoC2;
-    final ArrayList<IProduct> products = data.productListOneConsoleThreeGames;
+    final ArrayList<IProductRental> products = data.productListOneConsoleThreeGames;
 
     @BeforeAll
     static void createRentals(){
@@ -61,7 +61,7 @@ public class RentalServiceTest {
         assertGetAllRentalsSize(1);
     }
     @Test
-    void getRentalObjectFromCustomerIdReturnsExopectedRental(){
+    void getRentalObjectFromCustomerIdReturnsExpectedRental(){
         RentalService.allRentals().add(r1);
         assertGetAllRentalsSize(1);
         try{

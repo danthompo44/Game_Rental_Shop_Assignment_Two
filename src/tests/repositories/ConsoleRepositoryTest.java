@@ -81,7 +81,7 @@ public class ConsoleRepositoryTest {
         ConsoleRepository.editConsole(consoleFourWithEditValues);
 
         Assertions.assertEquals("EditedDescription", consoleFour.getDescription());
-        Assertions.assertEquals(999.99, consoleFour.getCost());
+        Assertions.assertEquals(999.99, consoleFour.getRentalCost());
         Assertions.assertTrue(consoleFour.isRented());
         Assertions.assertFalse(consoleFour.isBeingRepaired());
     }

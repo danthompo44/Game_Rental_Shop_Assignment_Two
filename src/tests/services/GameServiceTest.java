@@ -71,7 +71,7 @@ public class GameServiceTest {
         }
         catch(Exception ignore){}
         Assertions.assertEquals("Edited Description", gameTwoBroken.getDescription());
-        Assertions.assertEquals(20.99, gameTwoBroken.getCost());
+        Assertions.assertEquals(20.99, gameTwoBroken.getRentalCost());
         Assertions.assertTrue(gameTwoBroken.isRented());
         Assertions.assertFalse(gameTwoBroken.isBeingRepaired());
     }

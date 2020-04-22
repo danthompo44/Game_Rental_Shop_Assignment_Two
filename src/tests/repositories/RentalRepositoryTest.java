@@ -1,6 +1,6 @@
 package tests.repositories;
 
-import GameApp.java.models.IProduct;
+import GameApp.java.models.IProductRental;
 import GameApp.java.models.Rental;
 import GameApp.java.repositories.RentalRepository;
 import org.junit.jupiter.api.Assertions;
@@ -50,7 +50,7 @@ public class RentalRepositoryTest {
     @Test
     void addRentalSuccessfullySetsProductsWithinRentalToRented(){
         RentalRepository.addRental(rentalOne);
-        for(IProduct p: rentalOne.getProducts()){
+        for(IProductRental p: rentalOne.getProducts()){
             Assertions.assertTrue(p.isRented());
         }
     }

@@ -105,7 +105,7 @@ public class GameRepositoryTest {
         Assertions.assertEquals("PR1712", gamePR1712Edited.getId());
         GameRepository.editGame(gamePR1712Edited);
         Assertions.assertEquals("Edited", gamePR1712.getDescription());
-        Assertions.assertEquals(999.99, gamePR1712.getCost());
+        Assertions.assertEquals(999.99, gamePR1712.getRentalCost());
         Assertions.assertFalse(gamePR1712.isRented());
         Assertions.assertTrue(gamePR1712.isBeingRepaired());
     }

@@ -38,7 +38,7 @@ class ConsoleTest {
     }
     @Test
     void getCostReturnsExpectedCost(){
-        Assertions.assertEquals(12.97, consolePR1014.getCost());
+        Assertions.assertEquals(12.97, consolePR1014.getRentalCost());
     }
     @Test
     void isRentedReturnsExpectedBoolean(){
@@ -52,9 +52,9 @@ class ConsoleTest {
     }
     @Test
     void setCostAllowsForTheSettingOfCost(){
-        Assertions.assertEquals(12.97, consolePR1014.getCost());
-        consolePR1014.setCost(9.99);
-        Assertions.assertEquals(9.99, consolePR1014.getCost());
+        Assertions.assertEquals(12.97, consolePR1014.getRentalCost());
+        consolePR1014.setRentalCost(9.99);
+        Assertions.assertEquals(9.99, consolePR1014.getRentalCost());
     }
     @Test
     void setDescriptionAllowsForTheSettingOfTheDescription(){

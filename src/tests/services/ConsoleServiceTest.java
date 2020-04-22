@@ -88,7 +88,7 @@ public class ConsoleServiceTest {
 
         //check edit has occurred
         Assertions.assertEquals("Edited Description", consoleThreeRented.getDescription());
-        Assertions.assertEquals(9.99, consoleThreeRented.getCost());
+        Assertions.assertEquals(9.99, consoleThreeRented.getRentalCost());
         Assertions.assertFalse(consoleThreeRented.isRented());
         Assertions.assertTrue(consoleThreeRented.isBeingRepaired());
     }

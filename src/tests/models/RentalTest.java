@@ -17,8 +17,8 @@ public class RentalTest {
     final static Game g2 = new Game("Console Three, C1, Rentable", 81.29, co2,false, false);
     final static Game g3 = new Game("PR1712","Console Four, C2, Is Rented", 19.99, co1, true, false);
 
-    final static ArrayList<IProduct> p1 = new ArrayList<IProduct>();
-    final static ArrayList<IProduct> p2 = new ArrayList<IProduct>();
+    final static ArrayList<IProductRental> p1 = new ArrayList<>();
+    final static ArrayList<IProductRental> p2 = new ArrayList<>();
     static Rental r1;
     static Rental r2;
     static Rental r3;
@@ -43,7 +43,7 @@ public class RentalTest {
     @Test
     void returnRentalSetsProductsWithinRentalToReturned(){
         r1.returnRental();
-        for(IProduct p: r1.getProducts()){
+        for(IProductRental p: r1.getProducts()){
             Assertions.assertFalse(p.isRented());
         }
     }

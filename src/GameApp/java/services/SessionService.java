@@ -63,10 +63,10 @@ public class SessionService {//Used to create Dummy Data when the app starts up
     }//adds dummy customer data to an array then pass that array into an array list
 
     private void populateRentals(){
-        ArrayList<IProduct> productsRentalOne = new ArrayList<>();
+        ArrayList<IProductRental> productsRentalOne = new ArrayList<>();
         productsRentalOne.add(consoles.get(1));//add TurboGrafx
         productsRentalOne.add(games.get(1));//add R Type
-        ArrayList<IProduct> productsRentalTwo = new ArrayList<>();
+        ArrayList<IProductRental> productsRentalTwo = new ArrayList<>();
         productsRentalTwo.add(games.get(4));//add Gran Turismo 3
         productsRentalTwo.add(games.get(6));//add Mario Kart
 

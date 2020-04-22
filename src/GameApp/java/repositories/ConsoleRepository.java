@@ -48,7 +48,7 @@ public class ConsoleRepository {
         for (Console c : getAllConsoles()) {
             if (c.getId().equals(console.getId())) {
                 c.setDescription(console.getDescription());
-                c.setCost(console.getCost());
+                c.setRentalCost(console.getRentalCost());
                 c.setIsBeingRepaired(console.isBeingRepaired());
                 c.setIsRented(console.isRented());
             }

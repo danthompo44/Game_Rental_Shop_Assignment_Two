@@ -7,19 +7,19 @@ import java.util.ArrayList;
 public class Rental {
     private String id;
     private static int idSeed = 1000;
-    private ArrayList<IProduct> rentalItems = new ArrayList<>();
+    private ArrayList<IProductRental> rentalItems = new ArrayList<>();
     private Customer customer;
     private String returnDate;
     private double totalCost;
 
-    public Rental(Customer customer, ArrayList<IProduct> products){
+    public Rental(Customer customer, ArrayList<IProductRental> products){
         id = "RE" + idSeed;
         idSeed++;
         this.customer = customer;
         rentalItems.addAll(products);
         returnDate = DateHelp.getOneMonthLater();
         setTotalCost(products);
-        for(IProduct p: products){
+        for(IProductRental p: products){
             p.addToRental();
         }
     }
@@ -32,12 +32,12 @@ public class Rental {
             return customer;
     }
 
-    public ArrayList<IProduct> getProducts(){
+    public ArrayList<IProductRental> getProducts(){
         return rentalItems;
     }
 
     public void returnRental(){
-        for(IProduct p: rentalItems){
+        for(IProductRental p: rentalItems){
             p.removeFromRental();
         }
     }
@@ -46,10 +46,10 @@ public class Rental {
         return returnDate;
     }
 
-    private void setTotalCost(ArrayList<IProduct> products){
+    private void setTotalCost(ArrayList<IProductRental> products){
         totalCost = 0.0;
-        for(IProduct p: products){
-            totalCost+=p.getCost();
+        for(IProductRental p: products){
+            totalCost+=p.getRentalCost();
         }
     }
 
