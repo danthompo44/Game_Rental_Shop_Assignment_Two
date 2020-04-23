@@ -3,7 +3,7 @@ package GameApp.java.models;
 import GameApp.java.general.CostFormatter;
 import GameApp.java.models.hashmaps.HashMaps;
 
-public class Console implements IProductRental {
+public class Console implements IProductRental{
     private String bitDepth;
     private String formFactor;
     private boolean isRented;
@@ -37,7 +37,7 @@ public class Console implements IProductRental {
 
     @Override
     public double getRentalCost(){
-        return details.getCost();
+        return details.getRentalCost();
     }
 
     @Override
@@ -60,7 +60,7 @@ public class Console implements IProductRental {
 
     @Override
     public void setRentalCost(double cost) {
-        details.setCost(cost);
+        details.setRentalCost(cost);
     }
 
     @Override
@@ -97,6 +97,6 @@ public class Console implements IProductRental {
     public String toString(){
         return String.format("Product ID:  %s\n" +
                 "Description:  %s\n" +
-                "Cost:  £%s", details.getId(), details.getDescription(), CostFormatter.format(details.getCost()));
+                "Cost:  £%s", details.getId(), details.getDescription(), CostFormatter.format(details.getRentalCost()));
     }
 }

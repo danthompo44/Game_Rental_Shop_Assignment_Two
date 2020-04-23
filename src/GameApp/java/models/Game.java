@@ -15,7 +15,8 @@ public class Game implements IProductRental {
         this.isBeingRepaired = isBeingRepaired;
     }
 
-    public Game(String id, String description, double rentalCost, Console console, boolean isRented, boolean isBeingRepaired){
+    public Game(String id, String description, double rentalCost, Console console, boolean isRented,
+                boolean isBeingRepaired){
         details = new ProductDetails(id, description, rentalCost);
         this.console = console;
         this.isRented = isRented;
@@ -90,6 +91,9 @@ public class Game implements IProductRental {
         return String.format("Product ID:  %s\n" +
                 "Description:  %s\n" +
                 "Cost:  £%s\n" +
-                "Game's Platform:  %s", details.getId(), details.getDescription(), CostFormatter.format(details.getRentalCost()), console.getDescription());
+                "Game's Platform:  %s", details.getId(), details.getDescription(),
+                CostFormatter.format(details.getRentalCost()), console.getDescription());
     }
 }
+
+
