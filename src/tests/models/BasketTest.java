@@ -40,6 +40,7 @@ public class BasketTest {
         Basket.removeProduct(gameTwo);
         assertBasketSize(0);
     }
+
     @Test
     void removeProductDoesNotRemoveAProductThatIsNotInTheBasket(){
         Basket.getProducts().add(gameOne);
@@ -59,9 +60,5 @@ public class BasketTest {
         assertBasketSize(4);
         Basket.clearBasket();
         assertBasketSize(0);
-    }
-    @Test
-    void getProductsSuccessfullyRetrievesProducts(){
-
     }
 }
