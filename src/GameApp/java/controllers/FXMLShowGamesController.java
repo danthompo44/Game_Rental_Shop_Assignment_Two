@@ -30,7 +30,7 @@ public class FXMLShowGamesController implements Initializable {
     @FXML
     private void handleEditAction(ActionEvent event) throws IOException {
         if(games.getSelectionModel().getSelectedIndex()!=-1){
-            router.changeRouteWithGameDetails(RouteNames.EDIT_GAME, event, GameViewAdapter.getGameID(games));
+            router.changeRouteWithDetails(RouteNames.EDIT_GAME, event, GameViewAdapter.getGameID(games));
         }
         else{
             AlertMessage.showMessage(Alert.AlertType.INFORMATION, "Please select a Game to edit!");

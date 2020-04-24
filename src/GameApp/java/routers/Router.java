@@ -1,9 +1,6 @@
 package GameApp.java.routers;
 
-import GameApp.java.controllers.interfaces.IConsoleCommunication;
-import GameApp.java.controllers.interfaces.ICustomerCommunication;
-import GameApp.java.controllers.interfaces.IGameCommunication;
-import GameApp.java.controllers.interfaces.IRentalCommunication;
+import GameApp.java.controllers.interfaces.*;
 import GameApp.java.general.ScreenHelp;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +16,7 @@ import java.util.Map;
 public class Router {
     final String VIEW_PATH = "../../resources/views/";
     final String STYLE_PATH = "../../resources/css/style.css";
+    private FXMLLoader fxmlLoader;
 
     //maps keys to a string which the changeRoute() method uses to change scenes. It does this by accessing the RouteNames enum
     //to force a particular selections and adds the resultant string from this key to a predefined string "VIEW_PATH" or "STYLE_PATH".
@@ -43,7 +41,7 @@ public class Router {
     public final void changeRoute(RouteNames route, ActionEvent actionEvent) throws IOException {
         String sceneRoute = routesMap.get(route);
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneRoute));
+        fxmlLoader = new FXMLLoader(getClass().getResource(sceneRoute));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
         root.getStylesheets().add(getClass().getResource(STYLE_PATH).toExternalForm());
@@ -53,67 +51,10 @@ public class Router {
         ScreenHelp.centreScreen(stage);
     }
 
-    public final void changeRouteWithCustomerDetails(RouteNames route, ActionEvent actionEvent, String id) throws IOException {
-        String sceneRoute = routesMap.get(route);
+    public final void changeRouteWithDetails(RouteNames route, ActionEvent actionEvent, String id) throws IOException {
+        changeRoute(route, actionEvent);
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneRoute));
-        Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root);
-        root.getStylesheets().add(getClass().getResource(STYLE_PATH).toExternalForm());
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-
-        ICustomerCommunication controller = fxmlLoader.getController();
+        IControllerCommunication controller = fxmlLoader.getController();
         controller.passID(id);
-
-        ScreenHelp.centreScreen(stage);
-    }
-
-    public final void changeRouteWithConsoleDetails(RouteNames route, ActionEvent actionEvent, String id) throws IOException {
-        String sceneRoute = routesMap.get(route);
-
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneRoute));
-        Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root);
-        root.getStylesheets().add(getClass().getResource(STYLE_PATH).toExternalForm());
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-
-        IConsoleCommunication controller = fxmlLoader.getController();
-        controller.passID(id);
-
-        ScreenHelp.centreScreen(stage);
-    }
-
-    public final void changeRouteWithGameDetails(RouteNames route, ActionEvent actionEvent, String id) throws IOException {
-        String sceneRoute = routesMap.get(route);
-
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneRoute));
-        Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root);
-        root.getStylesheets().add(getClass().getResource(STYLE_PATH).toExternalForm());
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-
-        IGameCommunication controller = fxmlLoader.getController();
-        controller.passID(id);
-
-        ScreenHelp.centreScreen(stage);
-    }
-
-    public final void changeRouteWithRentalDetails(RouteNames route, ActionEvent actionEvent, String id) throws IOException {
-        String sceneRoute = routesMap.get(route);
-
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(sceneRoute));
-        Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root);
-        root.getStylesheets().add(getClass().getResource(STYLE_PATH).toExternalForm());
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-
-        IRentalCommunication controller = fxmlLoader.getController();
-        controller.passID(id);
-
-        ScreenHelp.centreScreen(stage);
     }
 }

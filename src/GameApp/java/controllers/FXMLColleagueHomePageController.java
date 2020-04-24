@@ -36,7 +36,7 @@ public class FXMLColleagueHomePageController implements Initializable {
             GameService.noGamesAreAvailable();
             if(customers.getSelectionModel().getSelectedIndex()!=-1){//checks if a customer is selected in the listview displayed
                 if(!RentalService.customerHasExistingRental(CustomerViewAdapter.getID(customers))){//checks if a customer already has a rental
-                    this.router.changeRouteWithCustomerDetails(RouteNames.CREATE_RENTAL, event, CustomerViewAdapter.getID(customers));
+                    this.router.changeRouteWithDetails(RouteNames.CREATE_RENTAL, event, CustomerViewAdapter.getID(customers));
                 }
                 else{//displays message if customer already has a rental
                     AlertMessage.showMessage(Alert.AlertType.INFORMATION, "Customer already has a rental!");
@@ -59,7 +59,7 @@ public class FXMLColleagueHomePageController implements Initializable {
         if(customers.getSelectionModel().getSelectedIndex()!=-1){//checks if a customer has been selected from the listview displayed
             try {//throws an exception if customer doesn't have a rental, changes route to show rental view
                 RentalService.getRentalObjectFromCustomerId(CustomerViewAdapter.getID(customers));
-                this.router.changeRouteWithRentalDetails(RouteNames.SHOW_RENTAL, event, CustomerViewAdapter.getID(customers));
+                this.router.changeRouteWithDetails(RouteNames.SHOW_RENTAL, event, CustomerViewAdapter.getID(customers));
             }
             catch(DoesNotExistException dne){//displays message saying that customer doesn't have a rental
                 AlertMessage.showMessage(Alert.AlertType.INFORMATION, dne.getMessage());
@@ -84,7 +84,7 @@ public class FXMLColleagueHomePageController implements Initializable {
     @FXML
     private void handleEditCustomerAction(ActionEvent event) throws IOException{//method for changing route to edit customer page
         if(customers.getSelectionModel().getSelectedIndex()!=-1){//checks if a customer has been selected from the displayed list view
-            this.router.changeRouteWithCustomerDetails(RouteNames.EDIT_CUSTOMER, event, CustomerViewAdapter.getID(customers));
+            this.router.changeRouteWithDetails(RouteNames.EDIT_CUSTOMER, event, CustomerViewAdapter.getID(customers));
         }
         else{//displays error message if customer hasn't been selected
             AlertMessage.showMessage(Alert.AlertType.INFORMATION, "Please Select A Customer To Edit!");

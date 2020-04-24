@@ -31,7 +31,7 @@ public class FXMLShowConsolesController implements Initializable{
     @FXML
     private void handleEditAction(ActionEvent event) throws IOException{
         if(consoles.getSelectionModel().getSelectedIndex()!=-1){
-            router.changeRouteWithConsoleDetails(RouteNames.EDIT_CONSOLE, event, ConsoleViewAdapter.getID(consoles));
+            router.changeRouteWithDetails(RouteNames.EDIT_CONSOLE, event, ConsoleViewAdapter.getID(consoles));
         }
         else{
             AlertMessage.showMessage(Alert.AlertType.INFORMATION, "Please select a Console to edit!");
