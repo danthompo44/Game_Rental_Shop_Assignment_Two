@@ -47,7 +47,7 @@ public class FXMLShowConsolesController implements Initializable, AssignServiceD
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        showProducts();
+
     }
     @FXML
     private void handleRepairedCheckboxAction(ActionEvent event){
@@ -67,9 +67,10 @@ public class FXMLShowConsolesController implements Initializable, AssignServiceD
     private void handleDeleteAction(ActionEvent event){
         if(consoles.getSelectionModel().getSelectedIndex()!=-1){
             if(!(ConsoleViewAdapter.getConsoleObject(consoles)).isRented()){
-                cs.removeConsole(ConsoleViewAdapter.getConsoleObject(consoles));
-                AlertMessage.showMessage(Alert.AlertType.INFORMATION, ConsoleViewAdapter.getConsoleDescription(consoles) + " has been deleted!");
-                showProducts();
+                if(AlertMessage.showConfirmationMessage("Are you sure you want to delete " + ConsoleViewAdapter.getConsoleDescription(consoles) +"?")){
+                    cs.removeConsole(ConsoleViewAdapter.getConsoleObject(consoles));
+                    showProducts();
+                }
             }
             else{
                 AlertMessage.showMessage(Alert.AlertType.INFORMATION, ConsoleViewAdapter.getConsoleDescription(consoles) + " is currently on loan and cannot be deleted!");
@@ -103,5 +104,6 @@ public class FXMLShowConsolesController implements Initializable, AssignServiceD
     @Override
     public void setDependency(IService service) {
         cs = (IConsoleService) service;
+        showProducts();
     }
 }

@@ -19,12 +19,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FXMLCreateRentalController implements Initializable, ICustomerCommunication, AssignFourServiceDependencies {
+public class FXMLCreateRentalController implements Initializable, ICustomerCommunication, AssignFiveServiceDependencies {
     private Router router = new Router();
     private ICustomerService cs;
     private IGameService gs;
     private IConsoleService ics;
     private IRentalService rs;
+    private IProductBasketService pbs;
 
     @FXML
     TextField customerID, customerName, addressField;
@@ -47,7 +48,7 @@ public class FXMLCreateRentalController implements Initializable, ICustomerCommu
     @FXML
     private void handleSubmitAction(ActionEvent event) throws IOException{//method for creating a rental after checks are complete and changing routes to colleague home page
         if(!basketView.getItems().isEmpty()){//only runs if the basket has products within it
-            rs.addRental(cs.getCustomerById(customerID.getText()), ProductBasketService.allBasketItems());
+            rs.addRental(cs.getCustomerById(customerID.getText()), pbs.allBasketItems());
             AlertMessage.showMessage(Alert.AlertType.INFORMATION, RentalViewAdapter.confirmationString(customerID.getText()));
             router.changeRoute(RouteNames.COLLEAGUE_HOME, event);
         }
@@ -83,7 +84,7 @@ public class FXMLCreateRentalController implements Initializable, ICustomerCommu
         if(consoles.getSelectionModel().getSelectedIndex()!=-1){//check if a console is selected
             if(consoleCheckbox.isSelected()) {
                 try {//catch exception if product already exists in the basket or it's limit has been reached
-                    ProductBasketService.addProduct(ConsoleViewAdapter.getConsoleObject(consoles));//add console to basket
+                    pbs.addProduct(ConsoleViewAdapter.getConsoleObject(consoles));//add console to basket
                 }
                 catch(Exception e){
                     AlertMessage.showMessage(Alert.AlertType.INFORMATION, e.getMessage());
@@ -91,7 +92,7 @@ public class FXMLCreateRentalController implements Initializable, ICustomerCommu
             }
             if(games.getSelectionModel().getSelectedIndex()!=-1){//check if a game has been selected
                 try {//catch exception if product already exists in the basket or it's limit has been reached
-                    ProductBasketService.addProduct(GameViewAdapter.getGameObject(games));//add game to basket
+                    pbs.addProduct(GameViewAdapter.getGameObject(games));//add game to basket
                 }
                 catch(Exception e){
                     AlertMessage.showMessage(Alert.AlertType.INFORMATION, e.getMessage());
@@ -106,16 +107,16 @@ public class FXMLCreateRentalController implements Initializable, ICustomerCommu
         }
         consoleCheckbox.setSelected(false);//reset console checkbox to false
         showBasketItems();//refresh basket listview to show updated items
-        consoleCheckbox.setVisible(!ProductBasketService.consoleLimitReached());//sets console checbox to visible or not depending if console limit is reached
+        consoleCheckbox.setVisible(!pbs.consoleLimitReached());//sets console checbox to visible or not depending if console limit is reached
 //        populateAvailableGames(ConsoleViewAdapter.getID(consoles));
     }
     @FXML
     private void handleRemoveFromBasketAction(ActionEvent event){//method for removing product from the basket
         if(basketView.getSelectionModel().getSelectedIndex()!=-1){//checks if product is selected in the basket
-            ProductBasketService.removeProduct(ProductViewAdapter.getProductObject(basketView));//remove product from basket using view adaptor to retrieve product from the listview
+            pbs.removeProduct(ProductViewAdapter.getProductObject(basketView));//remove product from basket using view adaptor to retrieve product from the listview
             AlertMessage.showMessage(Alert.AlertType.INFORMATION, ProductViewAdapter.getProductDescription(basketView) + " has been removed from the basket!");//display message confirming removal
             showBasketItems();//refresh basket listview with updated items
-            consoleCheckbox.setVisible(!ProductBasketService.consoleLimitReached());
+            consoleCheckbox.setVisible(!pbs.consoleLimitReached());
         }
         else{//display message if no product has been selected
             AlertMessage.showMessage(Alert.AlertType.INFORMATION, "No items are in your Basket");
@@ -154,7 +155,7 @@ public class FXMLCreateRentalController implements Initializable, ICustomerCommu
 
     private void showBasketItems(){//displays basket items in the listview
         ObservableList basket;
-        basket = FXCollections.observableArrayList(ProductBasketService.allBasketItems());
+        basket = FXCollections.observableArrayList(pbs.allBasketItems());
         basketView.setItems(basket);
     }
 
@@ -184,11 +185,16 @@ public class FXMLCreateRentalController implements Initializable, ICustomerCommu
     public void setTertiaryDependency(IService service) {
         ics = (IConsoleService) service;
         populateAvailableConsoles();
-        ProductBasketService.clearBasket();
     }
 
     @Override
     public void setFourthDependency(IService service) {
         rs = (IRentalService) service;
+    }
+
+    @Override
+    public void setFifthDependency(IService service) {
+        pbs = (IProductBasketService) service;
+        pbs.clearBasket();
     }
 }

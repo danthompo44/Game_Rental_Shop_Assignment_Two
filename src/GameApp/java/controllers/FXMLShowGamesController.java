@@ -46,7 +46,6 @@ public class FXMLShowGamesController implements Initializable, AssignServiceDepe
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        showProducts();
     }
     @FXML
     private void handleRepairedCheckboxAction(ActionEvent event){
@@ -66,9 +65,10 @@ public class FXMLShowGamesController implements Initializable, AssignServiceDepe
     private void handleDeleteAction(ActionEvent event){
         if(games.getSelectionModel().getSelectedIndex()!=-1){
             if(!(GameViewAdapter.getGameObject(games)).isRented()){
-                gs.removeGame(GameViewAdapter.getGameObject(games));
-                AlertMessage.showMessage(Alert.AlertType.INFORMATION, GameViewAdapter.getGameDescription(games) + " Has Been Deleted!");
-                showProducts();
+                if(AlertMessage.showConfirmationMessage("Are you sure you want to delete " + GameViewAdapter.getGameDescription(games) + "?")){
+                    gs.removeGame(GameViewAdapter.getGameObject(games));
+                    showProducts();
+                }
             }
             else{
                 AlertMessage.showMessage(Alert.AlertType.INFORMATION, GameViewAdapter.getGameDescription(games) + " is currently on loan and cannot be deleted!");
@@ -102,6 +102,7 @@ public class FXMLShowGamesController implements Initializable, AssignServiceDepe
     @Override
     public void setDependency(IService service) {
         gs = (IGameService) service;
+        showProducts();
     }
 }
 

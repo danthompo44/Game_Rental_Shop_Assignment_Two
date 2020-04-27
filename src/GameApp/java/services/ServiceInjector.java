@@ -1,18 +1,14 @@
 package GameApp.java.services;
 
 import GameApp.java.routers.RouteNames;
-import GameApp.java.services.interfaces.AssignFourServiceDependencies;
-import GameApp.java.services.interfaces.AssignServiceDependency;
-import GameApp.java.services.interfaces.AssignThreeServiceDependencies;
-import GameApp.java.services.interfaces.AssignTwoServiceDependencies;
+import GameApp.java.services.interfaces.*;
 import javafx.fxml.FXMLLoader;
 
 public class ServiceInjector {
     public static void assignDependency(FXMLLoader fxmlLoader, RouteNames route){
         AssignServiceDependency sd;
-        AssignTwoServiceDependencies asd;
         AssignThreeServiceDependencies atd;
-        AssignFourServiceDependencies afd;
+        AssignFiveServiceDependencies fsd;
         switch(route){
             case ADD_CUSTOMER:
             case EDIT_CUSTOMER:
@@ -29,6 +25,7 @@ public class ServiceInjector {
                 sd.setDependency(new GameService());
                 break;
             case EDIT_CONSOLE:
+            case SHOW_CONSOLES:
                 sd = fxmlLoader.getController();
                 sd.setDependency(new ConsoleService());
                 break;
@@ -39,11 +36,13 @@ public class ServiceInjector {
                 atd.setTertiaryDependency(new RentalService());
                 break;
             case CREATE_RENTAL:
-                afd = fxmlLoader.getController();
-                afd.setDependency(new CustomerService());
-                afd.setSecondaryDependency(new GameService());
-                afd.setTertiaryDependency(new ConsoleService());
-                afd.setFourthDependency(new RentalService());
+                fsd = fxmlLoader.getController();
+                fsd.setDependency(new CustomerService());
+                fsd.setSecondaryDependency(new GameService());
+                fsd.setTertiaryDependency(new ConsoleService());
+                fsd.setFourthDependency(new RentalService());
+                fsd.setFifthDependency(new ProductBasketService());
+                break;
         }
     }
     public static void assignCustomerHomePageDependencies(AssignTwoServiceDependencies sd){
