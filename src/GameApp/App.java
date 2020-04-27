@@ -1,6 +1,7 @@
 package GameApp;
 
 import GameApp.java.services.SessionService;
+import GameApp.java.services.interfaces.AssignServiceDependency;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +13,7 @@ public class App extends Application {
     //create a public object that anything in the app can access
     //this is done by using App.session from any class!!
     public static SessionService session = new SessionService();
+
 
     @Override
         public void start(Stage primaryStage) throws Exception{

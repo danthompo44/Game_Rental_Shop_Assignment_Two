@@ -7,6 +7,9 @@ import GameApp.java.routers.RouteNames;
 import GameApp.java.routers.Router;
 import GameApp.java.services.ConsoleService;
 import GameApp.java.services.GameService;
+import GameApp.java.services.interfaces.AssignServiceDependency;
+import GameApp.java.services.interfaces.ICustomerService;
+import GameApp.java.services.interfaces.IService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,8 +25,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FXMLCustomerHomePageController implements Initializable{
+public class FXMLCustomerHomePageController implements Initializable, AssignServiceDependency {
     private Router router = new Router();
+    private ICustomerService cs;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -83,5 +87,10 @@ public class FXMLCustomerHomePageController implements Initializable{
         if(GameService.availableGames().size()==0){
             gamesLabel.setText("Games: None Are Available");
         }
+    }
+
+    @Override
+    public void setDependency(IService service) {
+        cs = (ICustomerService) service;
     }
 }

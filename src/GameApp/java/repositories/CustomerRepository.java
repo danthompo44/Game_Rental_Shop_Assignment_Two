@@ -1,5 +1,6 @@
 package GameApp.java.repositories;
 
+import GameApp.App;
 import GameApp.java.models.Customer;
 import GameApp.java.services.SessionService;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 public class CustomerRepository {
 
     public static ArrayList<Customer> getAllCustomers() {
-        return SessionService.getCustomers();
+        return App.session.getCustomers();
     }//returns all consoles within the SessionService class getCustomers()
 
     public static Customer getCustomerByID(String id) {

@@ -4,32 +4,33 @@ import GameApp.java.general.exceptions.CustomerException;
 import GameApp.java.models.Customer;
 import GameApp.java.models.validators.CustomerValidator;
 import GameApp.java.repositories.CustomerRepository;
+import GameApp.java.services.interfaces.ICustomerService;
 
 import java.util.ArrayList;
 
 //responsible for creating Customer objects from arguments given to it by the front end
 //It then uses these arguments to create Customer objects and then passes them to the Data Repository
 //which is responsible for checking that they exist or are being repaired etc...
-public class CustomerService {
-    public static ArrayList<Customer> allCustomers(){
+public class CustomerService implements ICustomerService {
+    public ArrayList<Customer> allCustomers(){
         return CustomerRepository.getAllCustomers();
     }
 
-    public static void addCustomer(Object... args) throws CustomerException{
+    public void addCustomer(Object... args) throws CustomerException{
         Customer customer = createCustomerFromParameters(args);
         CustomerRepository.addCustomer(customer);
     }
 
-    public static void removeCustomer(Customer customer){
+    public void removeCustomer(Customer customer){
         CustomerRepository.removeCustomer(customer);
     }
 
-    public static void editCustomer(Object... args) throws CustomerException{
+    public void editCustomer(Object... args) throws CustomerException{
         Customer customer = createCustomerFromIdParameters(args);
         CustomerRepository.editCustomer(customer);
     }
 
-    public static Customer getCustomerById(String id){
+    public Customer getCustomerById(String id){
         return CustomerRepository.getCustomerByID(id);
     }//if a customer exists within the repository it will return the customer object
 

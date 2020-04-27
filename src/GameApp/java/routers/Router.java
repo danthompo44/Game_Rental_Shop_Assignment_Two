@@ -2,6 +2,7 @@ package GameApp.java.routers;
 
 import GameApp.java.controllers.interfaces.*;
 import GameApp.java.general.ScreenHelp;
+import GameApp.java.services.ServiceInjector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -47,7 +48,9 @@ public class Router {
         root.getStylesheets().add(getClass().getResource(STYLE_PATH).toExternalForm());
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setScene(scene);
-
+        if(RouteNames.COLLEAGUE_SIGN_IN != route){
+            ServiceInjector.assignDependency(fxmlLoader, route);
+        }
         ScreenHelp.centreScreen(stage);
     }
 

@@ -5,6 +5,9 @@ import GameApp.java.general.exceptions.CustomerException;
 import GameApp.java.routers.RouteNames;
 import GameApp.java.routers.Router;
 import GameApp.java.services.CustomerService;
+import GameApp.java.services.interfaces.AssignServiceDependency;
+import GameApp.java.services.interfaces.ICustomerService;
+import GameApp.java.services.interfaces.IService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,15 +18,16 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FXMLAddCustomerController implements Initializable {
+public class FXMLAddCustomerController implements Initializable, AssignServiceDependency {
     private Router router = new Router();
+    private ICustomerService cs;
 
     @FXML
     private TextField firstName, surname, address;
     @FXML
     private void handleCustomerConfirmAction(ActionEvent event) throws IOException{
         try{//uses the validator to check that information has been inputted, then creating a customer and adding them to an array list of customers, switches view to the colleague home page
-            CustomerService.addCustomer(firstName.getText(), surname.getText(), address.getText());
+            cs.addCustomer(firstName.getText(), surname.getText(), address.getText());
             router.changeRoute(RouteNames.COLLEAGUE_HOME, event);
         }
         catch(CustomerException ce){//displays an alert message with information about the caught exception
@@ -38,5 +42,10 @@ public class FXMLAddCustomerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    }
+
+    @Override
+    public void setDependency(IService service) {
+        cs = (ICustomerService) service;
     }
 }

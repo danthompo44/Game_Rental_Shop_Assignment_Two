@@ -9,6 +9,9 @@ import GameApp.java.routers.Router;
 import GameApp.java.services.CustomerService;
 import GameApp.java.services.GameService;
 import GameApp.java.services.RentalService;
+import GameApp.java.services.interfaces.AssignServiceDependency;
+import GameApp.java.services.interfaces.ICustomerService;
+import GameApp.java.services.interfaces.IService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,17 +24,19 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FXMLColleagueHomePageController implements Initializable {
+public class FXMLColleagueHomePageController implements Initializable, AssignServiceDependency {
     private Router router = new Router();
+    private ICustomerService cs;
     @FXML
     private ListView customers;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        getCustomers();
+
     }
 
     @FXML
     private void handleCreateRentalAction(ActionEvent event) throws IOException{//Method for creating a new rental
+
         try{
             GameService.noGamesAreAvailable();
             if(customers.getSelectionModel().getSelectedIndex()!=-1){//checks if a customer is selected in the listview displayed
@@ -102,7 +107,7 @@ public class FXMLColleagueHomePageController implements Initializable {
                         AlertMessage.showMessage(Alert.AlertType.INFORMATION, dne.getMessage());//exception if customer does not have rental
                     }
                 }
-                CustomerService.removeCustomer(CustomerViewAdapter.getCustomer(customers));//uses customer view adaptor to retrieve customer object to be deleted
+                cs.removeCustomer(CustomerViewAdapter.getCustomer(customers));//uses customer view adaptor to retrieve customer object to be deleted
             }
             getCustomers();//calls method to display customers in listview
         }
@@ -111,8 +116,13 @@ public class FXMLColleagueHomePageController implements Initializable {
         }
     }
     private void getCustomers(){//displays all customers into the listview
-        ObservableList customer = FXCollections.observableArrayList(CustomerService.allCustomers());
+        ObservableList customer = FXCollections.observableArrayList(cs.allCustomers());
         customers.setItems(customer);
     }
 
+    @Override
+    public void setDependency(IService service) {
+        cs = (ICustomerService) service;
+        getCustomers();
+    }
 }

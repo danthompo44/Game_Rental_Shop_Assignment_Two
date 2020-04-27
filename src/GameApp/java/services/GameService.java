@@ -6,13 +6,14 @@ import GameApp.java.models.Console;
 import GameApp.java.models.Game;
 import GameApp.java.models.validators.ProductValidator;
 import GameApp.java.repositories.GameRepository;
+import GameApp.java.services.interfaces.IGameService;
 
 import java.util.ArrayList;
 
 //responsible for creating Game objects from arguments given to it by the front end
 //It then uses these arguments to create Game objects and then passes them to the Data Repository
 //which is responsible for checking that they exist or are being repaired etc...
-public class GameService {
+public class GameService{
     public static ArrayList<Game> allGames(){
         return GameRepository.getAllGames();
     }
@@ -26,7 +27,7 @@ public class GameService {
         GameRepository.editGame(game);
     }
 
-    public static void removeGame(Game game){
+    public static  void removeGame(Game game){
         GameRepository.removeGame(game);
     }
 

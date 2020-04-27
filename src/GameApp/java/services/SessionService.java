@@ -82,7 +82,7 @@ public class SessionService {//Used to create Dummy Data when the app starts up
     public static ArrayList<Console> getConsoles(){
         return consoles;
     }
-    public static ArrayList<Customer> getCustomers(){
+    public ArrayList<Customer> getCustomers(){
         return customers;
     }
     public static ArrayList<Rental> getRentals(){

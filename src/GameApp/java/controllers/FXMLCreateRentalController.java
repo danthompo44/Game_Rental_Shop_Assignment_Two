@@ -6,6 +6,9 @@ import GameApp.java.models.adaptors.*;
 import GameApp.java.routers.RouteNames;
 import GameApp.java.routers.Router;
 import GameApp.java.services.*;
+import GameApp.java.services.interfaces.AssignServiceDependency;
+import GameApp.java.services.interfaces.ICustomerService;
+import GameApp.java.services.interfaces.IService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,8 +21,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FXMLCreateRentalController implements Initializable, ICustomerCommunication {
+public class FXMLCreateRentalController implements Initializable, ICustomerCommunication, AssignServiceDependency {
     private Router router = new Router();
+    private ICustomerService cs;
     @FXML
     TextField customerID, customerName, addressField;
     @FXML
@@ -42,7 +46,7 @@ public class FXMLCreateRentalController implements Initializable, ICustomerCommu
     @FXML
     private void handleSubmitAction(ActionEvent event) throws IOException{//method for creating a rental after checks are complete and changing routes to colleague home page
         if(!basketView.getItems().isEmpty()){//only runs if the basket has products within it
-            RentalService.addRental(CustomerService.getCustomerById(customerID.getText()), ProductBasketService.allBasketItems());
+            RentalService.addRental(cs.getCustomerById(customerID.getText()), ProductBasketService.allBasketItems());
             AlertMessage.showMessage(Alert.AlertType.INFORMATION, RentalViewAdapter.confirmationString(customerID.getText()));
             router.changeRoute(RouteNames.COLLEAGUE_HOME, event);
         }
@@ -155,7 +159,7 @@ public class FXMLCreateRentalController implements Initializable, ICustomerCommu
 
     @Override
     public void passID(String id) {//controller communication that allow the retrieval of the customer id from the colleague home page, passes this id to the customer details method
-        CustomerViewAdapter.getCustomerDetails(CustomerService.getCustomerById(id), this);
+        CustomerViewAdapter.getCustomerDetails(cs.getCustomerById(id), this);
     }
 
     @Override
@@ -163,5 +167,10 @@ public class FXMLCreateRentalController implements Initializable, ICustomerCommu
         customerID.setText(id);
         customerName.setText(String.format("%s %s",firstName, surname));
         addressField.setText(address);
+    }
+
+    @Override
+    public void setDependency(IService service) {
+        cs = (ICustomerService) service;
     }
 }
