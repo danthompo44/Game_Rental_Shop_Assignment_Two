@@ -7,8 +7,8 @@ import GameApp.java.general.exceptions.DoesNotExistException;
 import GameApp.java.models.adaptors.GameViewAdapter;
 import GameApp.java.routers.RouteNames;
 import GameApp.java.routers.Router;
-import GameApp.java.services.GameService;
 import GameApp.java.services.interfaces.AssignServiceDependency;
+import GameApp.java.services.interfaces.IGameService;
 import GameApp.java.services.interfaces.IService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 
 public class FXMLEditGameController implements Initializable, IGameCommunication, AssignServiceDependency {
     private Router router = new Router();
+    private IGameService gs;
 
     @FXML
     private TextField gameID, gameDescription, cost, platform, consoleID;
@@ -41,7 +42,7 @@ public class FXMLEditGameController implements Initializable, IGameCommunication
         boolean loaned = loanedCheckbox.isSelected();
         boolean beingRepaired = repairedCheckbox.isSelected();
         try{
-            GameService.editGame(id, description, gameCost, consoleID, loaned, beingRepaired);
+            gs.editGame(id, description, gameCost, consoleID, loaned, beingRepaired);
             router.changeRoute(RouteNames.SHOW_GAMES, event);
         }
         catch (Exception e){
@@ -58,7 +59,7 @@ public class FXMLEditGameController implements Initializable, IGameCommunication
     @Override
     public void passID(String id) {
         try{
-            GameViewAdapter.getGameDetails(GameService.getGameByID(id), this);
+            GameViewAdapter.getGameDetails(gs.getGameByID(id), this);
         }
         catch(DoesNotExistException dne){//Exception should never be seen, here for completeness
             AlertMessage.showMessage(Alert.AlertType.INFORMATION, dne.getMessage());
@@ -86,6 +87,6 @@ public class FXMLEditGameController implements Initializable, IGameCommunication
 
     @Override
     public void setDependency(IService service) {
-
+        gs = (IGameService) service;
     }
 }

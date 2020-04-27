@@ -6,7 +6,7 @@ import GameApp.java.models.Console;
 import GameApp.java.models.Game;
 import java.util.ArrayList;
 
-public interface IGameService {
+public interface IGameService extends IService{
     public ArrayList<Game> allGames();
     public ArrayList<Game> availableGames();
     public void editGame(Object... args) throws Exception;

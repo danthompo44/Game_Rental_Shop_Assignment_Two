@@ -6,9 +6,7 @@ import GameApp.java.models.adaptors.*;
 import GameApp.java.routers.RouteNames;
 import GameApp.java.routers.Router;
 import GameApp.java.services.*;
-import GameApp.java.services.interfaces.AssignServiceDependency;
-import GameApp.java.services.interfaces.ICustomerService;
-import GameApp.java.services.interfaces.IService;
+import GameApp.java.services.interfaces.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,9 +19,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FXMLCreateRentalController implements Initializable, ICustomerCommunication, AssignServiceDependency {
+public class FXMLCreateRentalController implements Initializable, ICustomerCommunication, AssignTwoServiceDependencies {
     private Router router = new Router();
     private ICustomerService cs;
+    private IGameService gs;
+
     @FXML
     TextField customerID, customerName, addressField;
     @FXML
@@ -130,13 +130,13 @@ public class FXMLCreateRentalController implements Initializable, ICustomerCommu
     private void populateAvailableGamesByConsole(String id) {//populates games that are available on the selected console
         if(showAllGamesCheckbox.isSelected()){
             ObservableList gamesList;
-            gamesList = FXCollections.observableArrayList(GameService.availableGames());
+            gamesList = FXCollections.observableArrayList(gs.availableGames());
             games.setItems(gamesList);
         }
         else{
             ObservableList gamesList;
             try{
-                gamesList = FXCollections.observableArrayList(GameService.getAvailableGamesByConsole(ConsoleService.getConsoleByID(id)));
+                gamesList = FXCollections.observableArrayList(gs.getAvailableGamesByConsole(ConsoleService.getConsoleByID(id)));
                 games.setItems(gamesList);
             }
             catch(Exception e){//exception should never be seen, here for completeness
@@ -147,7 +147,7 @@ public class FXMLCreateRentalController implements Initializable, ICustomerCommu
 
     private void populateAllAvailableGames(){
         ObservableList gamesList;
-        gamesList = FXCollections.observableArrayList(GameService.availableGames());
+        gamesList = FXCollections.observableArrayList(gs.availableGames());
         games.setItems(gamesList);
     }
 
@@ -172,5 +172,10 @@ public class FXMLCreateRentalController implements Initializable, ICustomerCommu
     @Override
     public void setDependency(IService service) {
         cs = (ICustomerService) service;
+    }
+
+    @Override
+    public void setSecondaryDependency(IService service) {
+        gs = (IGameService) service;
     }
 }

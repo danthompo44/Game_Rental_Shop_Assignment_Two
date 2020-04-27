@@ -7,9 +7,8 @@ import GameApp.java.routers.RouteNames;
 import GameApp.java.routers.Router;
 import GameApp.java.services.ConsoleService;
 import GameApp.java.services.GameService;
-import GameApp.java.services.interfaces.AssignServiceDependency;
-import GameApp.java.services.interfaces.ICustomerService;
-import GameApp.java.services.interfaces.IService;
+import GameApp.java.services.ServiceInjector;
+import GameApp.java.services.interfaces.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,12 +24,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FXMLCustomerHomePageController implements Initializable, AssignServiceDependency {
+public class FXMLCustomerHomePageController implements Initializable, AssignTwoServiceDependencies {
     private Router router = new Router();
-    private ICustomerService cs;
+    private IGameService gs;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        ServiceInjector.assignCustomerHomePageDependencies(this);
         gamesByConsoleCheckbox.setSelected(true);
         populateAvailableConsoles();
         consolesOutput.getSelectionModel().selectFirst();
@@ -67,7 +67,7 @@ public class FXMLCustomerHomePageController implements Initializable, AssignServ
         if(gamesByConsoleCheckbox.isSelected()){
             ObservableList availableGamesByPlatform;
             try{
-                availableGamesByPlatform = FXCollections.observableArrayList(GameService.getAvailableGamesByConsole(ConsoleService.getConsoleByID(ConsoleViewAdapter.getID(consolesOutput))));
+                availableGamesByPlatform = FXCollections.observableArrayList(gs.getAvailableGamesByConsole(ConsoleService.getConsoleByID(ConsoleViewAdapter.getID(consolesOutput))));
                 gamesOutput.setItems(availableGamesByPlatform);
                 gamesLabel.setText("Games By Console");
             }
@@ -77,20 +77,25 @@ public class FXMLCustomerHomePageController implements Initializable, AssignServ
         }
         else{
             ObservableList games;
-            games = FXCollections.observableArrayList(GameService.availableGames());
+            games = FXCollections.observableArrayList(gs.availableGames());
             gamesOutput.setItems(games);
             gamesLabel.setText("All Available Games");
         }
         if(ConsoleService.availableConsoles().size()==0){
             consolesLabel.setText("Consoles: None Are Available");
         }
-        if(GameService.availableGames().size()==0){
+        if(gs.availableGames().size()==0){
             gamesLabel.setText("Games: None Are Available");
         }
     }
 
     @Override
     public void setDependency(IService service) {
-        cs = (ICustomerService) service;
+        gs = (IGameService) service;
+    }
+
+    @Override
+    public void setSecondaryDependency(IService service) {
+
     }
 }

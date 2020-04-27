@@ -5,6 +5,9 @@ import GameApp.java.models.adaptors.GameViewAdapter;
 import GameApp.java.routers.RouteNames;
 import GameApp.java.routers.Router;
 import GameApp.java.services.GameService;
+import GameApp.java.services.interfaces.AssignServiceDependency;
+import GameApp.java.services.interfaces.IGameService;
+import GameApp.java.services.interfaces.IService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,8 +22,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FXMLShowGamesController implements Initializable {
+public class FXMLShowGamesController implements Initializable, AssignServiceDependency {
     private Router router = new Router();
+    private IGameService gs;
     @FXML
     private CheckBox repaired, loaned;
     @FXML
@@ -62,7 +66,7 @@ public class FXMLShowGamesController implements Initializable {
     private void handleDeleteAction(ActionEvent event){
         if(games.getSelectionModel().getSelectedIndex()!=-1){
             if(!(GameViewAdapter.getGameObject(games)).isRented()){
-                GameService.removeGame(GameViewAdapter.getGameObject(games));
+                gs.removeGame(GameViewAdapter.getGameObject(games));
                 AlertMessage.showMessage(Alert.AlertType.INFORMATION, GameViewAdapter.getGameDescription(games) + " Has Been Deleted!");
                 showProducts();
             }
@@ -77,9 +81,9 @@ public class FXMLShowGamesController implements Initializable {
 
 
     private void showProducts() {
-        ObservableList fullGameList = FXCollections.observableArrayList(GameService.allGames());
-        ObservableList repairGameList = FXCollections.observableArrayList(GameService.getBrokenGames());
-        ObservableList loanedGameList = FXCollections.observableArrayList(GameService.getLoanedGames());
+        ObservableList fullGameList = FXCollections.observableArrayList(gs.allGames());
+        ObservableList repairGameList = FXCollections.observableArrayList(gs.getBrokenGames());
+        ObservableList loanedGameList = FXCollections.observableArrayList(gs.getLoanedGames());
 
         if (!repaired.isSelected() && !loaned.isSelected()) {
             heading.setText("All Games");
@@ -93,6 +97,11 @@ public class FXMLShowGamesController implements Initializable {
             heading.setText("Games On Loan");
             games.setItems(loanedGameList);
         }
+    }
+
+    @Override
+    public void setDependency(IService service) {
+        gs = (IGameService) service;
     }
 }
 

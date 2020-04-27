@@ -13,45 +13,45 @@ import java.util.ArrayList;
 //responsible for creating Game objects from arguments given to it by the front end
 //It then uses these arguments to create Game objects and then passes them to the Data Repository
 //which is responsible for checking that they exist or are being repaired etc...
-public class GameService{
-    public static ArrayList<Game> allGames(){
+public class GameService implements IGameService{
+    public ArrayList<Game> allGames(){
         return GameRepository.getAllGames();
     }
 
-    public static ArrayList<Game> availableGames(){
+    public ArrayList<Game> availableGames(){
         return GameRepository.availableGames();
     }
 
-    public static void editGame(Object... args) throws Exception{
+    public void editGame(Object... args) throws Exception{
         Game game = createGameFromParameters(args);
         GameRepository.editGame(game);
     }
 
-    public static  void removeGame(Game game){
+    public void removeGame(Game game){
         GameRepository.removeGame(game);
     }
 
-    public static ArrayList<Game> getLoanedGames(){
+    public ArrayList<Game> getLoanedGames(){
         return GameRepository.getLoanedGames();
     }
 
-    public static ArrayList<Game> getBrokenGames(){
+    public ArrayList<Game> getBrokenGames(){
         return GameRepository.getBrokenGames();
     }
 
-    public static Game getGameByID(String id) throws DoesNotExistException {
+    public Game getGameByID(String id) throws DoesNotExistException {
         return GameRepository.getGameByID(id);
     }//if a game exist it will return the game object
 
-    public static ArrayList<Game> getAvailableGamesByConsole(Console console){
+    public ArrayList<Game> getAvailableGamesByConsole(Console console){
         return GameRepository.getAvailableGamesByPlatform(console);
     }
 
-    public static void noGamesAreAvailable() throws NotAvailableException{
+    public void noGamesAreAvailable() throws NotAvailableException{
         GameRepository.noGamesAreAvailable();
     }
 
-    private static Game createGameFromParameters(Object... args) throws Exception{
+    private Game createGameFromParameters(Object... args) throws Exception{
         String id = (String) args [0];
         String description = (String) args[1];
         String cost = (String) args[2];
