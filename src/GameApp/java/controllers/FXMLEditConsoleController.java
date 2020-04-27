@@ -7,7 +7,9 @@ import GameApp.java.general.exceptions.DoesNotExistException;
 import GameApp.java.models.adaptors.ConsoleViewAdapter;
 import GameApp.java.routers.RouteNames;
 import GameApp.java.routers.Router;
-import GameApp.java.services.ConsoleService;
+import GameApp.java.services.interfaces.AssignServiceDependency;
+import GameApp.java.services.interfaces.IConsoleService;
+import GameApp.java.services.interfaces.IService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,8 +21,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FXMLEditConsoleController implements Initializable, IConsoleCommunication {
+public class FXMLEditConsoleController implements Initializable, IConsoleCommunication, AssignServiceDependency {
     private Router router = new Router();
+    private IConsoleService cs;
 
     @FXML
     private TextField id, description, cost, bitDepth, formFactor;
@@ -40,7 +43,7 @@ public class FXMLEditConsoleController implements Initializable, IConsoleCommuni
         boolean isRented = rented.isSelected();
         boolean beingRepaired = repair.isSelected();
         try{
-            ConsoleService.editConsole(id, description, cost, bitDepth, formFactor, isRented, beingRepaired);
+            cs.editConsole(id, description, cost, bitDepth, formFactor, isRented, beingRepaired);
             router.changeRoute(RouteNames.SHOW_CONSOLES, event);
         }
         catch(Exception e){
@@ -51,7 +54,7 @@ public class FXMLEditConsoleController implements Initializable, IConsoleCommuni
     @Override
     public void passID(String id) {//method for passing an objects id from the previous page
         try{
-            ConsoleViewAdapter.getConsoleDetails(ConsoleService.getConsoleByID(id), this);
+            ConsoleViewAdapter.getConsoleDetails(cs.getConsoleByID(id), this);
         }
         catch(DoesNotExistException dne){//exception should never be seen, here for completeness
             AlertMessage.showMessage(Alert.AlertType.INFORMATION, dne.getMessage());
@@ -79,5 +82,10 @@ public class FXMLEditConsoleController implements Initializable, IConsoleCommuni
         this.rented.setSelected(isRented);
         this.repair.setSelected(beingRepaired);
         setRepairedVisibility();
+    }
+
+    @Override
+    public void setDependency(IService service) {
+        cs = (IConsoleService) service;
     }
 }

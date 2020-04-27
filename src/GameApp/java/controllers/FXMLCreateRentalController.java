@@ -19,10 +19,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FXMLCreateRentalController implements Initializable, ICustomerCommunication, AssignTwoServiceDependencies {
+public class FXMLCreateRentalController implements Initializable, ICustomerCommunication, AssignFourServiceDependencies {
     private Router router = new Router();
     private ICustomerService cs;
     private IGameService gs;
+    private IConsoleService ics;
+    private IRentalService rs;
 
     @FXML
     TextField customerID, customerName, addressField;
@@ -39,14 +41,13 @@ public class FXMLCreateRentalController implements Initializable, ICustomerCommu
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        populateAvailableConsoles();
-        ProductBasketService.clearBasket();
+
     }
 
     @FXML
     private void handleSubmitAction(ActionEvent event) throws IOException{//method for creating a rental after checks are complete and changing routes to colleague home page
         if(!basketView.getItems().isEmpty()){//only runs if the basket has products within it
-            RentalService.addRental(cs.getCustomerById(customerID.getText()), ProductBasketService.allBasketItems());
+            rs.addRental(cs.getCustomerById(customerID.getText()), ProductBasketService.allBasketItems());
             AlertMessage.showMessage(Alert.AlertType.INFORMATION, RentalViewAdapter.confirmationString(customerID.getText()));
             router.changeRoute(RouteNames.COLLEAGUE_HOME, event);
         }
@@ -123,7 +124,7 @@ public class FXMLCreateRentalController implements Initializable, ICustomerCommu
 
     private void populateAvailableConsoles() {//populates available console listview
         ObservableList consolesList;
-        consolesList = FXCollections.observableArrayList(ConsoleService.availableConsoles());
+        consolesList = FXCollections.observableArrayList(ics.availableConsoles());
         consoles.setItems(consolesList);
     }
 
@@ -136,7 +137,7 @@ public class FXMLCreateRentalController implements Initializable, ICustomerCommu
         else{
             ObservableList gamesList;
             try{
-                gamesList = FXCollections.observableArrayList(gs.getAvailableGamesByConsole(ConsoleService.getConsoleByID(id)));
+                gamesList = FXCollections.observableArrayList(gs.getAvailableGamesByConsole(ics.getConsoleByID(id)));
                 games.setItems(gamesList);
             }
             catch(Exception e){//exception should never be seen, here for completeness
@@ -177,5 +178,17 @@ public class FXMLCreateRentalController implements Initializable, ICustomerCommu
     @Override
     public void setSecondaryDependency(IService service) {
         gs = (IGameService) service;
+    }
+
+    @Override
+    public void setTertiaryDependency(IService service) {
+        ics = (IConsoleService) service;
+        populateAvailableConsoles();
+        ProductBasketService.clearBasket();
+    }
+
+    @Override
+    public void setFourthDependency(IService service) {
+        rs = (IRentalService) service;
     }
 }

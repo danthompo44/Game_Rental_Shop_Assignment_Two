@@ -5,6 +5,9 @@ import GameApp.java.models.adaptors.ConsoleViewAdapter;
 import GameApp.java.routers.RouteNames;
 import GameApp.java.routers.Router;
 import GameApp.java.services.ConsoleService;
+import GameApp.java.services.interfaces.AssignServiceDependency;
+import GameApp.java.services.interfaces.IConsoleService;
+import GameApp.java.services.interfaces.IService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,8 +22,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FXMLShowConsolesController implements Initializable{
+public class FXMLShowConsolesController implements Initializable, AssignServiceDependency {
     private Router router = new Router();
+    private IConsoleService cs;
 
     @FXML
     private CheckBox repaired, loaned;
@@ -63,7 +67,7 @@ public class FXMLShowConsolesController implements Initializable{
     private void handleDeleteAction(ActionEvent event){
         if(consoles.getSelectionModel().getSelectedIndex()!=-1){
             if(!(ConsoleViewAdapter.getConsoleObject(consoles)).isRented()){
-                ConsoleService.removeConsole(ConsoleViewAdapter.getConsoleObject(consoles));
+                cs.removeConsole(ConsoleViewAdapter.getConsoleObject(consoles));
                 AlertMessage.showMessage(Alert.AlertType.INFORMATION, ConsoleViewAdapter.getConsoleDescription(consoles) + " has been deleted!");
                 showProducts();
             }
@@ -78,9 +82,9 @@ public class FXMLShowConsolesController implements Initializable{
     }
 
     private void showProducts() {
-        ObservableList fullConsoleList = FXCollections.observableArrayList(ConsoleService.allConsoles());
-        ObservableList repairConsoleList = FXCollections.observableArrayList(ConsoleService.getBrokenConsoles());
-        ObservableList loanedConsoleList = FXCollections.observableArrayList(ConsoleService.getLoanedConsoles());
+        ObservableList fullConsoleList = FXCollections.observableArrayList(cs.allConsoles());
+        ObservableList repairConsoleList = FXCollections.observableArrayList(cs.getBrokenConsoles());
+        ObservableList loanedConsoleList = FXCollections.observableArrayList(cs.getLoanedConsoles());
 
         if (!repaired.isSelected() && !loaned.isSelected()) {
             heading.setText("All Consoles");
@@ -94,5 +98,10 @@ public class FXMLShowConsolesController implements Initializable{
             heading.setText("Consoles On Loan");
             consoles.setItems(loanedConsoleList);
         }
+    }
+
+    @Override
+    public void setDependency(IService service) {
+        cs = (IConsoleService) service;
     }
 }

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 //It then uses these arguments to create Game objects and then passes them to the Data Repository
 //which is responsible for checking that they exist or are being repaired etc...
 public class GameService implements IGameService{
+    ConsoleService cs = new ConsoleService();
     public ArrayList<Game> allGames(){
         return GameRepository.getAllGames();
     }
@@ -56,7 +57,7 @@ public class GameService implements IGameService{
         String description = (String) args[1];
         String cost = (String) args[2];
         String consoleId = (String) args[3];
-        Console console = ConsoleService.getConsoleByID(consoleId);
+        Console console = cs.getConsoleByID(consoleId);
         boolean isRented = (boolean) args[4];
         boolean beingRepaired = (boolean) args [5];
         ProductValidator.validate(description, cost);

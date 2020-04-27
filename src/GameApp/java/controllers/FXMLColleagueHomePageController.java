@@ -22,10 +22,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FXMLColleagueHomePageController implements Initializable, AssignTwoServiceDependencies {
+public class FXMLColleagueHomePageController implements Initializable, AssignThreeServiceDependencies {
     private Router router = new Router();
     private ICustomerService cs;
     private IGameService gs;
+    private IRentalService rs;
     @FXML
     private ListView customers;
     @Override
@@ -39,7 +40,7 @@ public class FXMLColleagueHomePageController implements Initializable, AssignTwo
         try{
             gs.noGamesAreAvailable();
             if(customers.getSelectionModel().getSelectedIndex()!=-1){//checks if a customer is selected in the listview displayed
-                if(!RentalService.customerHasExistingRental(CustomerViewAdapter.getID(customers))){//checks if a customer already has a rental
+                if(!rs.customerHasExistingRental(CustomerViewAdapter.getID(customers))){//checks if a customer already has a rental
                     this.router.changeRouteWithDetails(RouteNames.CREATE_RENTAL, event, CustomerViewAdapter.getID(customers));
                 }
                 else{//displays message if customer already has a rental
@@ -62,7 +63,7 @@ public class FXMLColleagueHomePageController implements Initializable, AssignTwo
     private void handleShowRentalAction(ActionEvent event) throws IOException{//method for showing rental details
         if(customers.getSelectionModel().getSelectedIndex()!=-1){//checks if a customer has been selected from the listview displayed
             try {//throws an exception if customer doesn't have a rental, changes route to show rental view
-                RentalService.getRentalObjectFromCustomerId(CustomerViewAdapter.getID(customers));
+                rs.getRentalObjectFromCustomerId(CustomerViewAdapter.getID(customers));
                 this.router.changeRouteWithDetails(RouteNames.SHOW_RENTAL, event, CustomerViewAdapter.getID(customers));
             }
             catch(DoesNotExistException dne){//displays message saying that customer doesn't have a rental
@@ -98,9 +99,9 @@ public class FXMLColleagueHomePageController implements Initializable, AssignTwo
     private void handleDeleteAction(ActionEvent event){//method for deleting a customer
         if(customers.getSelectionModel().getSelectedIndex()!=-1) {//checks if a customer has been selected from the displayed listview
             if(AlertMessage.showConfirmationMessage("Are you sure you want to delete " + CustomerViewAdapter.getCustomerFullName(customers) + "? Any associated rental will be returned!")){
-                if(RentalService.customerHasExistingRental(CustomerViewAdapter.getID(customers))){
+                if(rs.customerHasExistingRental(CustomerViewAdapter.getID(customers))){
                     try{
-                        RentalService.returnRentalById(RentalService.getRentalObjectFromCustomerId(CustomerViewAdapter.getID(customers)).getId());
+                        rs.returnRentalById(rs.getRentalObjectFromCustomerId(CustomerViewAdapter.getID(customers)).getId());
                     }
                     catch(DoesNotExistException dne){
                         AlertMessage.showMessage(Alert.AlertType.INFORMATION, dne.getMessage());//exception if customer does not have rental
@@ -128,5 +129,10 @@ public class FXMLColleagueHomePageController implements Initializable, AssignTwo
     @Override
     public void setSecondaryDependency(IService service) {
         gs = (IGameService) service;
+    }
+
+    @Override
+    public void setTertiaryDependency(IService service) {
+        rs = (IRentalService) service;
     }
 }

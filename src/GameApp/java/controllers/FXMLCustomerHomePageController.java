@@ -27,6 +27,7 @@ import java.util.ResourceBundle;
 public class FXMLCustomerHomePageController implements Initializable, AssignTwoServiceDependencies {
     private Router router = new Router();
     private IGameService gs;
+    private IConsoleService cs;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -59,7 +60,7 @@ public class FXMLCustomerHomePageController implements Initializable, AssignTwoS
 
     private void populateAvailableConsoles() {//method for displaying available consoles in the console listview
         ObservableList consoles;
-        consoles = FXCollections.observableArrayList(ConsoleService.availableConsoles());
+        consoles = FXCollections.observableArrayList(cs.availableConsoles());
         consolesOutput.setItems(consoles);
     }
 
@@ -67,7 +68,7 @@ public class FXMLCustomerHomePageController implements Initializable, AssignTwoS
         if(gamesByConsoleCheckbox.isSelected()){
             ObservableList availableGamesByPlatform;
             try{
-                availableGamesByPlatform = FXCollections.observableArrayList(gs.getAvailableGamesByConsole(ConsoleService.getConsoleByID(ConsoleViewAdapter.getID(consolesOutput))));
+                availableGamesByPlatform = FXCollections.observableArrayList(gs.getAvailableGamesByConsole(cs.getConsoleByID(ConsoleViewAdapter.getID(consolesOutput))));
                 gamesOutput.setItems(availableGamesByPlatform);
                 gamesLabel.setText("Games By Console");
             }
@@ -81,7 +82,7 @@ public class FXMLCustomerHomePageController implements Initializable, AssignTwoS
             gamesOutput.setItems(games);
             gamesLabel.setText("All Available Games");
         }
-        if(ConsoleService.availableConsoles().size()==0){
+        if(cs.availableConsoles().size()==0){
             consolesLabel.setText("Consoles: None Are Available");
         }
         if(gs.availableGames().size()==0){
@@ -96,6 +97,6 @@ public class FXMLCustomerHomePageController implements Initializable, AssignTwoS
 
     @Override
     public void setSecondaryDependency(IService service) {
-
+        cs = (IConsoleService) service;
     }
 }

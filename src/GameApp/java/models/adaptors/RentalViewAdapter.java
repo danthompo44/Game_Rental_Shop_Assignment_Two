@@ -8,11 +8,12 @@ import GameApp.java.services.RentalService;
 
 public class RentalViewAdapter {
     private static String confirmationMessage;
+    private static RentalService rs = new RentalService();
 
     public static String confirmationString(String id){
         confirmationMessage ="";
         try{
-            Rental r = RentalService.getRentalObjectFromCustomerId(id);
+            Rental r = rs.getRentalObjectFromCustomerId(id);
             confirmationMessage += "Rental to be Returned on: " + r.getReturnDate();
             confirmationMessage += "\nTotal Cost: £" + CostFormatter.format(r.getTotalCost());
             return confirmationMessage;
