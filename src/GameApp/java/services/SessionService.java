@@ -95,7 +95,6 @@ public class SessionService {//Used to create Dummy Data when the app starts up
     public ArrayList<Rental> getRentals(){
         return rentals;
     }
-
     }
 
 
