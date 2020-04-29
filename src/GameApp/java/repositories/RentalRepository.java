@@ -1,5 +1,6 @@
 package GameApp.java.repositories;
 
+import GameApp.App;
 import GameApp.java.general.exceptions.DoesNotExistException;
 import GameApp.java.models.Rental;
 import GameApp.java.services.SessionService;
@@ -12,7 +13,7 @@ import java.util.ConcurrentModificationException;
 // to it's methods and communicating between the back end (Make-shift DB) and the front end
 public class RentalRepository {
     public static ArrayList<Rental> getAllRentals(){
-        return SessionService.getRentals();
+        return App.session.getRentals();
     }
 
     public static void addRental(Rental rental){

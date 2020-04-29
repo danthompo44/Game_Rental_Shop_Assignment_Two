@@ -1,5 +1,6 @@
 package GameApp.java.repositories;
 
+import GameApp.App;
 import GameApp.java.general.exceptions.DoesNotExistException;
 import GameApp.java.models.Console;
 import GameApp.java.services.SessionService;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 // to it's methods and communicating between the back end (Make-shift DB) and the front end
 public class ConsoleRepository {
     public static ArrayList<Console> getAllConsoles() {
-        return SessionService.getConsoles();
+        return App.session.getConsoles();
     }//returns all consoles within the SessionService class getConsoles()
 
     public static ArrayList<Console> availableConsoles() {

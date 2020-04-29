@@ -10,13 +10,20 @@ public class SessionService {//Used to create Dummy Data when the app starts up
     private final static ArrayList<Customer> customers = new ArrayList<>();
     private final static ArrayList<Rental> rentals = new ArrayList<>();
 
-    public SessionService(){
+    private SessionService(){
         populateConsoles();
         populateGames();
         populateCustomers();
         populateRentals();
     }
 
+    private static class Singleton{
+        private static final SessionService INSTANCE = new SessionService();
+    }
+
+    public static SessionService getInstance(){
+        return Singleton.INSTANCE;
+    }
 
     private void populateConsoles(){
         String [] description = {"Atari 2600", "TurboGrafx-16", "Nintendo SNES", "Atari Lynx", "Sony PS2"};
@@ -76,16 +83,16 @@ public class SessionService {//Used to create Dummy Data when the app starts up
        rentals.add(r2);
     }
 
-    public static ArrayList<Game> getGames() {
+    public ArrayList<Game> getGames() {
         return games;
     }
-    public static ArrayList<Console> getConsoles(){
+    public ArrayList<Console> getConsoles(){
         return consoles;
     }
     public ArrayList<Customer> getCustomers(){
         return customers;
     }
-    public static ArrayList<Rental> getRentals(){
+    public ArrayList<Rental> getRentals(){
         return rentals;
     }
 

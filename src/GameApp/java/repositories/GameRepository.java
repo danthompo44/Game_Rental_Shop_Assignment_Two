@@ -1,5 +1,6 @@
 package GameApp.java.repositories;
 
+import GameApp.App;
 import GameApp.java.general.exceptions.DoesNotExistException;
 import GameApp.java.general.exceptions.NotAvailableException;
 import GameApp.java.models.Console;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 public class GameRepository {
     public static ArrayList<Game> gamesByConsole = new ArrayList<>(); //ArrayList for adding games related to a console to
     public static ArrayList<Game> getAllGames() {
-        return SessionService.getGames();
+        return App.session.getGames();
     }//returns all consoles within the SessionService class getGames()
 
     public static ArrayList<Game> availableGames() {

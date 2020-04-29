@@ -12,7 +12,7 @@ public class App extends Application {
 
     //create a public object that anything in the app can access
     //this is done by using App.session from any class!!
-    public static SessionService session = new SessionService();
+    public static SessionService session = SessionService.getInstance();
 
 
     @Override
