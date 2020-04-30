@@ -1,52 +1,43 @@
 package GameApp.java.services;
 
+import GameApp.java.controllers.interfaces.AssignServiceDependencies;
 import GameApp.java.routers.RouteNames;
-import GameApp.java.services.interfaces.*;
 import javafx.fxml.FXMLLoader;
 
 public class ServiceInjector {
     public static void assignDependency(FXMLLoader fxmlLoader, RouteNames route){
-        AssignServiceDependency sd;
-        AssignThreeServiceDependencies atd;
-        AssignFiveServiceDependencies fsd;
+        AssignServiceDependencies sd;
         switch(route){
             case ADD_CUSTOMER:
             case EDIT_CUSTOMER:
                 sd = fxmlLoader.getController();
-                sd.setDependency(new CustomerService());
+                sd.setDependencies(new CustomerService());
                 break;
             case SHOW_RENTAL:
                 sd = fxmlLoader.getController();
-                sd.setDependency(new RentalService());
+                sd.setDependencies(new RentalService());
                 break;
             case EDIT_GAME:
             case SHOW_GAMES:
                 sd = fxmlLoader.getController();
-                sd.setDependency(new GameService());
+                sd.setDependencies(new GameService());
                 break;
             case EDIT_CONSOLE:
             case SHOW_CONSOLES:
                 sd = fxmlLoader.getController();
-                sd.setDependency(new ConsoleService());
+                sd.setDependencies(new ConsoleService());
                 break;
             case COLLEAGUE_HOME:
-                atd = fxmlLoader.getController();
-                atd.setDependency(new CustomerService());
-                atd.setSecondaryDependency(new GameService());
-                atd.setTertiaryDependency(new RentalService());
+                sd = fxmlLoader.getController();
+                sd.setDependencies(new CustomerService(), new GameService(), new RentalService());
                 break;
             case CREATE_RENTAL:
-                fsd = fxmlLoader.getController();
-                fsd.setDependency(new CustomerService());
-                fsd.setSecondaryDependency(new GameService());
-                fsd.setTertiaryDependency(new ConsoleService());
-                fsd.setFourthDependency(new RentalService());
-                fsd.setFifthDependency(new ProductBasketService());
+                sd = fxmlLoader.getController();
+                sd.setDependencies(new CustomerService(), new GameService(), new ConsoleService(), new RentalService(), new ProductBasketService());
                 break;
         }
     }
-    public static void assignCustomerHomePageDependencies(AssignTwoServiceDependencies sd){
-        sd.setDependency(new GameService());
-        sd.setSecondaryDependency(new ConsoleService());
+    public static void assignCustomerHomePageDependencies(AssignServiceDependencies sd){
+        sd.setDependencies(new GameService(), new ConsoleService());
     }
 }

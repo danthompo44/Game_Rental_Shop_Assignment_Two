@@ -1,7 +1,6 @@
 package GameApp;
 
 import GameApp.java.services.SessionService;
-import GameApp.java.services.interfaces.AssignServiceDependency;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

@@ -1,12 +1,11 @@
 package GameApp.java.controllers;
 
+import GameApp.java.controllers.interfaces.AssignServiceDependencies;
 import GameApp.java.general.AlertMessage;
 import GameApp.java.general.exceptions.DoesNotExistException;
 import GameApp.java.models.adaptors.ConsoleViewAdapter;
 import GameApp.java.routers.RouteNames;
 import GameApp.java.routers.Router;
-import GameApp.java.services.ConsoleService;
-import GameApp.java.services.GameService;
 import GameApp.java.services.ServiceInjector;
 import GameApp.java.services.interfaces.*;
 import javafx.collections.FXCollections;
@@ -24,7 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FXMLCustomerHomePageController implements Initializable, AssignTwoServiceDependencies {
+public class FXMLCustomerHomePageController implements Initializable, AssignServiceDependencies {
     private Router router = new Router();
     private IGameService gs;
     private IConsoleService cs;
@@ -91,12 +90,8 @@ public class FXMLCustomerHomePageController implements Initializable, AssignTwoS
     }
 
     @Override
-    public void setDependency(IService service) {
-        gs = (IGameService) service;
-    }
-
-    @Override
-    public void setSecondaryDependency(IService service) {
-        cs = (IConsoleService) service;
+    public void setDependencies(Object... args) {
+        gs = (IGameService) args[0];
+        cs = (IConsoleService) args[1];
     }
 }

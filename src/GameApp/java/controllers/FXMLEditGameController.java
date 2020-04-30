@@ -1,5 +1,6 @@
 package GameApp.java.controllers;
 
+import GameApp.java.controllers.interfaces.AssignServiceDependencies;
 import GameApp.java.controllers.interfaces.IGameCommunication;
 import GameApp.java.general.AlertMessage;
 import GameApp.java.general.CostFormatter;
@@ -7,9 +8,7 @@ import GameApp.java.general.exceptions.DoesNotExistException;
 import GameApp.java.models.adaptors.GameViewAdapter;
 import GameApp.java.routers.RouteNames;
 import GameApp.java.routers.Router;
-import GameApp.java.services.interfaces.AssignServiceDependency;
 import GameApp.java.services.interfaces.IGameService;
-import GameApp.java.services.interfaces.IService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,7 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FXMLEditGameController implements Initializable, IGameCommunication, AssignServiceDependency {
+public class FXMLEditGameController implements Initializable, IGameCommunication, AssignServiceDependencies {
     private Router router = new Router();
     private IGameService gs;
 
@@ -85,7 +84,7 @@ public class FXMLEditGameController implements Initializable, IGameCommunication
     }
 
     @Override
-    public void setDependency(IService service) {
-        gs = (IGameService) service;
+    public void setDependencies(Object... args) {
+        gs = (IGameService) args[0];
     }
 }

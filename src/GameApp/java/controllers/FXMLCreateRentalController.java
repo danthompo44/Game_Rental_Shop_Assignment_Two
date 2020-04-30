@@ -1,11 +1,11 @@
 package GameApp.java.controllers;
 
+import GameApp.java.controllers.interfaces.AssignServiceDependencies;
 import GameApp.java.controllers.interfaces.ICustomerCommunication;
 import GameApp.java.general.AlertMessage;
 import GameApp.java.models.adaptors.*;
 import GameApp.java.routers.RouteNames;
 import GameApp.java.routers.Router;
-import GameApp.java.services.*;
 import GameApp.java.services.interfaces.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,12 +14,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FXMLCreateRentalController implements Initializable, ICustomerCommunication, AssignFiveServiceDependencies {
+public class FXMLCreateRentalController implements Initializable, ICustomerCommunication, AssignServiceDependencies {
     private Router router = new Router();
     private ICustomerService cs;
     private IGameService gs;
@@ -172,29 +171,17 @@ public class FXMLCreateRentalController implements Initializable, ICustomerCommu
     }
 
     @Override
-    public void setDependency(IService service) {
-        cs = (ICustomerService) service;
+    public void setDependencies(Object... args) {
+        cs = (ICustomerService) args[0];
+        gs = (IGameService) args[1];
+        ics = (IConsoleService) args[2];
+        rs = (IRentalService) args[3];
+        pbs = (IProductBasketService) args[4];
+        setup();
     }
 
-    @Override
-    public void setSecondaryDependency(IService service) {
-        gs = (IGameService) service;
-    }
-
-    @Override
-    public void setTertiaryDependency(IService service) {
-        ics = (IConsoleService) service;
+    private void setup(){
         populateAvailableConsoles();
-    }
-
-    @Override
-    public void setFourthDependency(IService service) {
-        rs = (IRentalService) service;
-    }
-
-    @Override
-    public void setFifthDependency(IService service) {
-        pbs = (IProductBasketService) service;
         pbs.clearBasket();
     }
 }

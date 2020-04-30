@@ -1,14 +1,12 @@
 package GameApp.java.controllers;
 
+import GameApp.java.controllers.interfaces.AssignServiceDependencies;
 import GameApp.java.general.AlertMessage;
 import GameApp.java.general.exceptions.DoesNotExistException;
 import GameApp.java.general.exceptions.NotAvailableException;
 import GameApp.java.models.adaptors.CustomerViewAdapter;
 import GameApp.java.routers.RouteNames;
 import GameApp.java.routers.Router;
-import GameApp.java.services.CustomerService;
-import GameApp.java.services.GameService;
-import GameApp.java.services.RentalService;
 import GameApp.java.services.interfaces.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,12 +15,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FXMLColleagueHomePageController implements Initializable, AssignThreeServiceDependencies {
+public class FXMLColleagueHomePageController implements Initializable, AssignServiceDependencies {
     private Router router = new Router();
     private ICustomerService cs;
     private IGameService gs;
@@ -121,18 +118,14 @@ public class FXMLColleagueHomePageController implements Initializable, AssignThr
     }
 
     @Override
-    public void setDependency(IService service) {
-        cs = (ICustomerService) service;
+    public void setDependencies(Object... args) {
+        cs = (ICustomerService) args[0];
+        gs = (IGameService) args[1];
+        rs = (IRentalService) args[2];
+        setup();
+    }
+
+    private void setup(){
         getCustomers();
-    }
-
-    @Override
-    public void setSecondaryDependency(IService service) {
-        gs = (IGameService) service;
-    }
-
-    @Override
-    public void setTertiaryDependency(IService service) {
-        rs = (IRentalService) service;
     }
 }
