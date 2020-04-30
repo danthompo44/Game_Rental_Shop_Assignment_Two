@@ -1,7 +1,6 @@
 package GameApp.java.models.adaptors;
 
-
-import GameApp.java.controllers.interfaces.IConsoleCommunication;
+import GameApp.java.controllers.interfaces.IControllerCommunication;
 import GameApp.java.models.Console;
 import javafx.scene.control.ListView;
 
@@ -18,7 +17,7 @@ public class ConsoleViewAdapter {//Used to allow the Controller classes to have 
         return lv.getSelectionModel().getSelectedItem().getDescription();
     }
 
-    public static void getConsoleDetails(Console c, IConsoleCommunication cc){
-        cc.consoleDetailsToEdit(c.getId(), c.getDescription(), c.getRentalCost(), c.getBitDepth(), c.getFormFactor(), c.isRented(), c.isBeingRepaired());
+    public static void getConsoleDetails(Console c, IControllerCommunication cc){
+        cc.detailsToEdit(c.getId(), c.getDescription(), c.getRentalCost(), c.getBitDepth(), c.getFormFactor(), c.isRented(), c.isBeingRepaired());
     }
 }

@@ -1,7 +1,7 @@
 package GameApp.java.controllers;
 
 import GameApp.java.controllers.interfaces.AssignServiceDependencies;
-import GameApp.java.controllers.interfaces.IGameCommunication;
+import GameApp.java.controllers.interfaces.IControllerCommunication;
 import GameApp.java.general.AlertMessage;
 import GameApp.java.general.CostFormatter;
 import GameApp.java.general.exceptions.DoesNotExistException;
@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FXMLEditGameController implements Initializable, IGameCommunication, AssignServiceDependencies {
+public class FXMLEditGameController implements Initializable, IControllerCommunication, AssignServiceDependencies {
     private Router router = new Router();
     private IGameService gs;
 
@@ -66,14 +66,14 @@ public class FXMLEditGameController implements Initializable, IGameCommunication
     }
 
     @Override
-    public void gameDetailsToEdit(String id, String description, double cost, String consoleID, String platform, boolean isLoaned, boolean beingRepaired) {
-        gameID.setText(id);
-        gameDescription.setText(description);
-        this.cost.setText(CostFormatter.format(cost));
-        this.consoleID.setText(consoleID);
-        this.platform.setText(platform);
-        loanedCheckbox.setSelected(isLoaned);
-        repairedCheckbox.setSelected(beingRepaired);
+    public void detailsToEdit(Object... args) {
+        gameID.setText((String) args[0]);
+        gameDescription.setText((String) args[1]);
+        this.cost.setText(CostFormatter.format((Double) args[2]));
+        this.consoleID.setText((String) args[3]);
+        this.platform.setText((String) args[4]);
+        loanedCheckbox.setSelected((Boolean) args[5]);
+        repairedCheckbox.setSelected((Boolean) args[6]);
         setRepairedCheckboxVisibility();
     }
 

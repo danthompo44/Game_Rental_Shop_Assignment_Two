@@ -1,7 +1,7 @@
 package GameApp.java.controllers;
 
 import GameApp.java.controllers.interfaces.AssignServiceDependencies;
-import GameApp.java.controllers.interfaces.ICustomerCommunication;
+import GameApp.java.controllers.interfaces.IControllerCommunication;
 import GameApp.java.general.AlertMessage;
 import GameApp.java.general.exceptions.CustomerException;
 import GameApp.java.models.adaptors.CustomerViewAdapter;
@@ -13,12 +13,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FXMLEditCustomerController implements Initializable, ICustomerCommunication, AssignServiceDependencies {
+public class FXMLEditCustomerController implements Initializable, IControllerCommunication, AssignServiceDependencies {
     private Router router = new Router();
     private ICustomerService cs;
     @FXML
@@ -49,6 +48,14 @@ public class FXMLEditCustomerController implements Initializable, ICustomerCommu
         CustomerViewAdapter.getCustomerDetails(cs.getCustomerById(id), this);
     }
 
+    @Override
+    public void detailsToEdit(Object... args) {
+        this.id.setText((String) args[0]);
+        this.firstName.setText((String) args[1]);
+        this.surname.setText((String) args[2]);
+        this.address.setText((String) args[3]);
+    }
+
     private String [] getInputDetails(){//retrieve input details from the views input fields
         String customerId = id.getText();
         String customerFirstname = firstName.getText();
@@ -56,14 +63,6 @@ public class FXMLEditCustomerController implements Initializable, ICustomerCommu
         String customerAddress = address.getText();
 
         return new String[]{customerId, customerFirstname, customerSurname, customerAddress};
-    }
-
-    @Override
-    public void customerDetailsToEdit(String id, String firstName, String surname, String address) {
-        this.id.setText(id);
-        this.firstName.setText(firstName);
-        this.surname.setText(surname);
-        this.address.setText(address);
     }
 
     @Override

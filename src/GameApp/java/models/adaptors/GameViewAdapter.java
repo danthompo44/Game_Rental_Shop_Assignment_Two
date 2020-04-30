@@ -1,6 +1,6 @@
 package GameApp.java.models.adaptors;
 
-import GameApp.java.controllers.interfaces.IGameCommunication;
+import GameApp.java.controllers.interfaces.IControllerCommunication;
 import GameApp.java.models.Game;
 import javafx.scene.control.ListView;
 
@@ -18,7 +18,7 @@ public class GameViewAdapter {
         return lv.getSelectionModel().getSelectedItem().getDescription();
     }
 
-    public static void getGameDetails(Game g, IGameCommunication gc){
-        gc.gameDetailsToEdit(g.getId(), g.getDescription(), g.getRentalCost(), g.getConsole().getId(), g.getConsole().getDescription(), g.isRented(), g.isBeingRepaired());
+    public static void getGameDetails(Game g, IControllerCommunication cc){
+        cc.detailsToEdit(g.getId(), g.getDescription(), g.getRentalCost(), g.getConsole().getId(), g.getConsole().getDescription(), g.isRented(), g.isBeingRepaired());
     }
 }

@@ -1,7 +1,7 @@
 package GameApp.java.controllers;
 
 import GameApp.java.controllers.interfaces.AssignServiceDependencies;
-import GameApp.java.controllers.interfaces.IConsoleCommunication;
+import GameApp.java.controllers.interfaces.IControllerCommunication;
 import GameApp.java.general.AlertMessage;
 import GameApp.java.general.CostFormatter;
 import GameApp.java.general.exceptions.DoesNotExistException;
@@ -15,12 +15,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FXMLEditConsoleController implements Initializable, IConsoleCommunication, AssignServiceDependencies {
+public class FXMLEditConsoleController implements Initializable, IControllerCommunication, AssignServiceDependencies {
     private Router router = new Router();
     private IConsoleService cs;
 
@@ -61,6 +60,18 @@ public class FXMLEditConsoleController implements Initializable, IConsoleCommuni
     }
 
     @Override
+    public void detailsToEdit(Object... args) {
+        this.id.setText((String) args[0]);
+        this.description.setText((String) args[1]);
+        this.cost.setText(CostFormatter.format((Double) args[2]));
+        this.bitDepth.setText((String) args[3]);
+        this.formFactor.setText((String) args[4]);
+        this.rented.setSelected((Boolean) args[5]);
+        this.repair.setSelected((Boolean) args[6]);
+        setRepairedVisibility();
+    }
+
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
@@ -69,18 +80,6 @@ public class FXMLEditConsoleController implements Initializable, IConsoleCommuni
         if(rented.isSelected()){
             repair.setVisible(false);
         }
-    }
-
-    @Override
-    public void consoleDetailsToEdit(String id, String description, double cost, String bitDepth, String formFactor, boolean isRented, boolean beingRepaired) {
-        this.id.setText(id);
-        this.description.setText(description);
-        this.cost.setText(CostFormatter.format(cost));
-        this.bitDepth.setText(bitDepth);
-        this.formFactor.setText(formFactor);
-        this.rented.setSelected(isRented);
-        this.repair.setSelected(beingRepaired);
-        setRepairedVisibility();
     }
 
     @Override

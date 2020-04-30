@@ -1,7 +1,7 @@
 package GameApp.java.controllers;
 
 import GameApp.java.controllers.interfaces.AssignServiceDependencies;
-import GameApp.java.controllers.interfaces.IRentalCommunication;
+import GameApp.java.controllers.interfaces.IControllerCommunication;
 import GameApp.java.general.AlertMessage;
 import GameApp.java.general.CostFormatter;
 import GameApp.java.general.exceptions.DoesNotExistException;
@@ -9,7 +9,6 @@ import GameApp.java.models.adaptors.RentalViewAdapter;
 import GameApp.java.routers.RouteNames;
 import GameApp.java.routers.Router;
 import GameApp.java.services.interfaces.IRentalService;
-import GameApp.java.services.interfaces.IService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,7 +23,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class FXMLShowRentalController implements Initializable, IRentalCommunication, AssignServiceDependencies {
+public class FXMLShowRentalController implements Initializable, IControllerCommunication, AssignServiceDependencies {
     private Router router = new Router();
     private IRentalService rs;
 
@@ -61,11 +60,12 @@ public class FXMLShowRentalController implements Initializable, IRentalCommunica
     }
 
     @Override
-    public void rentalDetailsToEdit(String fullname, String rentalId, String returnDate, double cost, ArrayList products) {
-        customerName.setText(fullname);
-        this.rentalID.setText(rentalId);
-        this.returnDate.setText(returnDate);
-        this.totalCost.setText(CostFormatter.format(cost));
+    public void detailsToEdit(Object... args) {
+        customerName.setText((String) args[0]);
+        this.rentalID.setText((String) args[1]);
+        this.returnDate.setText((String) args[2]);
+        this.totalCost.setText(CostFormatter.format((Double) args[3]));
+        ArrayList products = (ArrayList) args[4];
         ObservableList productList = FXCollections.observableArrayList(products);
         rentalItems.setItems(productList);
     }

@@ -1,7 +1,7 @@
 package GameApp.java.controllers;
 
 import GameApp.java.controllers.interfaces.AssignServiceDependencies;
-import GameApp.java.controllers.interfaces.ICustomerCommunication;
+import GameApp.java.controllers.interfaces.IControllerCommunication;
 import GameApp.java.general.AlertMessage;
 import GameApp.java.models.adaptors.*;
 import GameApp.java.routers.RouteNames;
@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FXMLCreateRentalController implements Initializable, ICustomerCommunication, AssignServiceDependencies {
+public class FXMLCreateRentalController implements Initializable, IControllerCommunication, AssignServiceDependencies {
     private Router router = new Router();
     private ICustomerService cs;
     private IGameService gs;
@@ -164,10 +164,10 @@ public class FXMLCreateRentalController implements Initializable, ICustomerCommu
     }
 
     @Override
-    public void customerDetailsToEdit(String id, String firstName, String surname, String address) {
-        customerID.setText(id);
-        customerName.setText(String.format("%s %s",firstName, surname));
-        addressField.setText(address);
+    public void detailsToEdit(Object... args) {
+        customerID.setText((String) args[0]);
+        customerName.setText(String.format("%s %s",args[1], args[2]));
+        addressField.setText((String) args[3]);
     }
 
     @Override

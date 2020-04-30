@@ -1,6 +1,6 @@
 package GameApp.java.models.adaptors;
 
-import GameApp.java.controllers.interfaces.IRentalCommunication;
+import GameApp.java.controllers.interfaces.IControllerCommunication;
 import GameApp.java.general.CostFormatter;
 import GameApp.java.general.exceptions.DoesNotExistException;
 import GameApp.java.models.Rental;
@@ -23,7 +23,7 @@ public class RentalViewAdapter {
         }
     }
 
-    public static void getCustomerDetails(Rental r, IRentalCommunication rc){
-        rc.rentalDetailsToEdit(r.getCustomer().getFullName(), r.getId(), r.getReturnDate(), r.getTotalCost(), r.getProducts());
+    public static void getCustomerDetails(Rental r, IControllerCommunication cc){
+        cc.detailsToEdit(r.getCustomer().getFullName(), r.getId(), r.getReturnDate(), r.getTotalCost(), r.getProducts());
     }
 }
