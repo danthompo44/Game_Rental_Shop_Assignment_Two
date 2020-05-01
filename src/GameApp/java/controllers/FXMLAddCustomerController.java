@@ -1,21 +1,23 @@
 package GameApp.java.controllers;
 
-import GameApp.java.controllers.interfaces.AssignServiceDependencies;
+import GameApp.java.controllers.interfaces.AssignServiceDependency;
 import GameApp.java.general.AlertMessage;
 import GameApp.java.general.exceptions.CustomerException;
 import GameApp.java.routers.RouteNames;
 import GameApp.java.routers.Router;
 import GameApp.java.services.interfaces.ICustomerService;
+import GameApp.java.services.interfaces.IService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FXMLAddCustomerController implements Initializable, AssignServiceDependencies {
+public class FXMLAddCustomerController implements Initializable, AssignServiceDependency {
     private Router router = new Router();
     private ICustomerService cs;
 
@@ -42,7 +44,7 @@ public class FXMLAddCustomerController implements Initializable, AssignServiceDe
     }
 
     @Override
-    public void setDependencies(Object... args) {
-        cs = (ICustomerService) args[0];
+    public void setDependency(IService service) {
+        cs = (ICustomerService) service;
     }
 }

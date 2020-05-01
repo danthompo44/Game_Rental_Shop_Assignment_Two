@@ -1,11 +1,12 @@
 package GameApp.java.controllers;
 
-import GameApp.java.controllers.interfaces.AssignServiceDependencies;
+import GameApp.java.controllers.interfaces.AssignServiceDependency;
 import GameApp.java.general.AlertMessage;
 import GameApp.java.models.adaptors.GameViewAdapter;
 import GameApp.java.routers.RouteNames;
 import GameApp.java.routers.Router;
 import GameApp.java.services.interfaces.IGameService;
+import GameApp.java.services.interfaces.IService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,7 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FXMLShowGamesController implements Initializable, AssignServiceDependencies {
+public class FXMLShowGamesController implements Initializable, AssignServiceDependency {
     private Router router = new Router();
     private IGameService gs;
     @FXML
@@ -97,13 +98,14 @@ public class FXMLShowGamesController implements Initializable, AssignServiceDepe
         }
     }
 
-    @Override
-    public void setDependencies(Object... args) {
-        gs = (IGameService) args[0];
-        setup();
-    }
     private void setup(){
         showProducts();
+    }
+
+    @Override
+    public void setDependency(IService service) {
+        gs = (IGameService) service;
+        setup();
     }
 }
 

@@ -1,37 +1,52 @@
 package GameApp.java.services;
 
-import GameApp.java.controllers.interfaces.AssignServiceDependencies;
+import GameApp.java.controllers.interfaces.AssignMultipleDependencies;
 import GameApp.java.routers.RouteNames;
-import javafx.fxml.FXMLLoader;
+import GameApp.java.services.interfaces.IService;
+import java.util.ArrayList;
 
 public class ServiceInjector {
-    public static void assignDependency(FXMLLoader fxmlLoader, RouteNames route){
-        AssignServiceDependencies sd = fxmlLoader.getController();
+    public static IService createDependency(RouteNames route){
         switch(route){
             case ADD_CUSTOMER:
             case EDIT_CUSTOMER:
-                sd.setDependencies(new CustomerService());
-                break;
+                return new CustomerService();
             case SHOW_RENTAL:
-                sd.setDependencies(new RentalService());
-                break;
+                return new RentalService();
             case EDIT_GAME:
             case SHOW_GAMES:
-                sd.setDependencies(new GameService());
-                break;
+                return new GameService();
             case EDIT_CONSOLE:
             case SHOW_CONSOLES:
-                sd.setDependencies(new ConsoleService());
-                break;
+                return new ConsoleService();
+        }
+        return null;
+    }
+    public static ArrayList<IService> createMultipleServices(RouteNames route){
+        ArrayList<IService> services = new ArrayList<>();
+        switch(route){
             case COLLEAGUE_HOME:
-                sd.setDependencies(new CustomerService(), new GameService(), new RentalService());
+                services.add(new CustomerService());
+                services.add(new GameService());
+                services.add(new RentalService());
                 break;
             case CREATE_RENTAL:
-                sd.setDependencies(new CustomerService(), new GameService(), new ConsoleService(), new RentalService(), new ProductBasketService());
-                break;
+                services.add(new CustomerService());
+                services.add(new GameService());
+                services.add(new ConsoleService());
+                services.add(new RentalService());
+                services.add(new ProductBasketService());
         }
+        return services;
     }
-    public static void assignCustomerHomePageDependencies(AssignServiceDependencies sd){
-        sd.setDependencies(new GameService(), new ConsoleService());
+    public static void assignCustomerHomePageDependencies(AssignMultipleDependencies control){
+        ArrayList<IService> services = new ArrayList<>();
+        services.add(new GameService());
+        services.add(new ConsoleService());
+
+        control.setDependencies(services);
+    }
+    public static boolean requiresMultipleServices(RouteNames route){
+        return route == RouteNames.COLLEAGUE_HOME || route == RouteNames.CREATE_RENTAL;
     }
 }

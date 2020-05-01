@@ -3,6 +3,7 @@ package GameApp.java.routers;
 import GameApp.java.controllers.interfaces.*;
 import GameApp.java.general.ScreenHelp;
 import GameApp.java.services.ServiceInjector;
+import GameApp.java.services.interfaces.IService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -11,6 +12,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.nio.channels.IllegalSelectorException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,8 +51,20 @@ public class Router {
         root.getStylesheets().add(getClass().getResource(STYLE_PATH).toExternalForm());
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setScene(scene);
+
         if(RouteNames.COLLEAGUE_SIGN_IN != route){
-            ServiceInjector.assignDependency(fxmlLoader, route);
+            if(ServiceInjector.requiresMultipleServices(route)){
+                ArrayList<IService> services = ServiceInjector.createMultipleServices(route);
+                AssignMultipleDependencies control = fxmlLoader.getController();
+                control.setDependencies(services);
+            }
+            else{
+                IService service = ServiceInjector.createDependency(route);
+                if(service!=null){
+                    AssignServiceDependency control = fxmlLoader.getController();
+                    control.setDependency(service);
+                }
+            }
         }
         ScreenHelp.centreScreen(stage);
     }

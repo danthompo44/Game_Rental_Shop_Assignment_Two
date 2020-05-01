@@ -1,6 +1,6 @@
 package GameApp.java.controllers;
 
-import GameApp.java.controllers.interfaces.AssignServiceDependencies;
+import GameApp.java.controllers.interfaces.AssignServiceDependency;
 import GameApp.java.controllers.interfaces.IControllerCommunication;
 import GameApp.java.general.AlertMessage;
 import GameApp.java.general.CostFormatter;
@@ -9,17 +9,19 @@ import GameApp.java.models.adaptors.GameViewAdapter;
 import GameApp.java.routers.RouteNames;
 import GameApp.java.routers.Router;
 import GameApp.java.services.interfaces.IGameService;
+import GameApp.java.services.interfaces.IService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FXMLEditGameController implements Initializable, IControllerCommunication, AssignServiceDependencies {
+public class FXMLEditGameController implements Initializable, IControllerCommunication, AssignServiceDependency {
     private Router router = new Router();
     private IGameService gs;
 
@@ -84,7 +86,7 @@ public class FXMLEditGameController implements Initializable, IControllerCommuni
     }
 
     @Override
-    public void setDependencies(Object... args) {
-        gs = (IGameService) args[0];
+    public void setDependency(IService service) {
+        gs = (IGameService) service;
     }
 }

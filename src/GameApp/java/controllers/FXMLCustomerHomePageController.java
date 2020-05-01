@@ -1,13 +1,15 @@
 package GameApp.java.controllers;
 
-import GameApp.java.controllers.interfaces.AssignServiceDependencies;
+import GameApp.java.controllers.interfaces.AssignMultipleDependencies;
 import GameApp.java.general.AlertMessage;
 import GameApp.java.general.exceptions.DoesNotExistException;
 import GameApp.java.models.adaptors.ConsoleViewAdapter;
 import GameApp.java.routers.RouteNames;
 import GameApp.java.routers.Router;
 import GameApp.java.services.ServiceInjector;
-import GameApp.java.services.interfaces.*;
+import GameApp.java.services.interfaces.IConsoleService;
+import GameApp.java.services.interfaces.IGameService;
+import GameApp.java.services.interfaces.IService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,9 +23,10 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class FXMLCustomerHomePageController implements Initializable, AssignServiceDependencies {
+public class FXMLCustomerHomePageController implements Initializable, AssignMultipleDependencies {
     private Router router = new Router();
     private IGameService gs;
     private IConsoleService cs;
@@ -31,7 +34,6 @@ public class FXMLCustomerHomePageController implements Initializable, AssignServ
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ServiceInjector.assignCustomerHomePageDependencies(this);
-        gamesByConsoleCheckbox.setSelected(true);
         populateAvailableConsoles();
         consolesOutput.getSelectionModel().selectFirst();
         showAvailableGames();
@@ -90,8 +92,8 @@ public class FXMLCustomerHomePageController implements Initializable, AssignServ
     }
 
     @Override
-    public void setDependencies(Object... args) {
-        gs = (IGameService) args[0];
-        cs = (IConsoleService) args[1];
+    public void setDependencies(ArrayList<IService> services) {
+        gs = (IGameService) services.get(0);
+        cs = (IConsoleService) services.get(1);
     }
 }

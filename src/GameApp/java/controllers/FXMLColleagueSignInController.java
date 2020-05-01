@@ -6,7 +6,6 @@ import GameApp.java.routers.Router;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -21,8 +20,6 @@ public class FXMLColleagueSignInController implements Initializable {
     private TextField username;
     @FXML
     private PasswordField password;
-    @FXML
-    private Button submit;
     @FXML
     private Label incorrectDetailsLabel;
     @FXML

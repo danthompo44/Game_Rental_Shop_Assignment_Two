@@ -1,6 +1,6 @@
 package GameApp.java.controllers;
 
-import GameApp.java.controllers.interfaces.AssignServiceDependencies;
+import GameApp.java.controllers.interfaces.AssignServiceDependency;
 import GameApp.java.controllers.interfaces.IControllerCommunication;
 import GameApp.java.general.AlertMessage;
 import GameApp.java.general.CostFormatter;
@@ -9,6 +9,7 @@ import GameApp.java.models.adaptors.RentalViewAdapter;
 import GameApp.java.routers.RouteNames;
 import GameApp.java.routers.Router;
 import GameApp.java.services.interfaces.IRentalService;
+import GameApp.java.services.interfaces.IService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,7 +24,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class FXMLShowRentalController implements Initializable, IControllerCommunication, AssignServiceDependencies {
+public class FXMLShowRentalController implements Initializable, IControllerCommunication, AssignServiceDependency {
     private Router router = new Router();
     private IRentalService rs;
 
@@ -71,7 +72,7 @@ public class FXMLShowRentalController implements Initializable, IControllerCommu
     }
 
     @Override
-    public void setDependencies(Object... args) {
-        rs = (IRentalService) args[0];
+    public void setDependency(IService service) {
+        rs = (IRentalService) service;
     }
 }

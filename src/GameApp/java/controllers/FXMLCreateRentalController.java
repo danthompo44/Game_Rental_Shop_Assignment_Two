@@ -1,6 +1,6 @@
 package GameApp.java.controllers;
 
-import GameApp.java.controllers.interfaces.AssignServiceDependencies;
+import GameApp.java.controllers.interfaces.AssignMultipleDependencies;
 import GameApp.java.controllers.interfaces.IControllerCommunication;
 import GameApp.java.general.AlertMessage;
 import GameApp.java.models.adaptors.*;
@@ -14,11 +14,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class FXMLCreateRentalController implements Initializable, IControllerCommunication, AssignServiceDependencies {
+public class FXMLCreateRentalController implements Initializable, IControllerCommunication, AssignMultipleDependencies {
     private Router router = new Router();
     private ICustomerService cs;
     private IGameService gs;
@@ -170,18 +172,18 @@ public class FXMLCreateRentalController implements Initializable, IControllerCom
         addressField.setText((String) args[3]);
     }
 
-    @Override
-    public void setDependencies(Object... args) {
-        cs = (ICustomerService) args[0];
-        gs = (IGameService) args[1];
-        ics = (IConsoleService) args[2];
-        rs = (IRentalService) args[3];
-        pbs = (IProductBasketService) args[4];
-        setup();
-    }
-
     private void setup(){
         populateAvailableConsoles();
         pbs.clearBasket();
+    }
+
+    @Override
+    public void setDependencies(ArrayList<IService> services) {
+        cs = (ICustomerService) services.get(0);
+        gs = (IGameService) services.get(1);
+        ics = (IConsoleService) services.get(2);
+        rs = (IRentalService) services.get(3);
+        pbs = (IProductBasketService) services.get(4);
+        setup();
     }
 }

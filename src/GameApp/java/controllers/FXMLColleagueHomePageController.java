@@ -1,13 +1,16 @@
 package GameApp.java.controllers;
 
-import GameApp.java.controllers.interfaces.AssignServiceDependencies;
+import GameApp.java.controllers.interfaces.AssignMultipleDependencies;
 import GameApp.java.general.AlertMessage;
 import GameApp.java.general.exceptions.DoesNotExistException;
 import GameApp.java.general.exceptions.NotAvailableException;
 import GameApp.java.models.adaptors.CustomerViewAdapter;
 import GameApp.java.routers.RouteNames;
 import GameApp.java.routers.Router;
-import GameApp.java.services.interfaces.*;
+import GameApp.java.services.interfaces.ICustomerService;
+import GameApp.java.services.interfaces.IGameService;
+import GameApp.java.services.interfaces.IRentalService;
+import GameApp.java.services.interfaces.IService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,9 +20,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class FXMLColleagueHomePageController implements Initializable, AssignServiceDependencies {
+public class FXMLColleagueHomePageController implements Initializable, AssignMultipleDependencies {
     private Router router = new Router();
     private ICustomerService cs;
     private IGameService gs;
@@ -117,15 +121,15 @@ public class FXMLColleagueHomePageController implements Initializable, AssignSer
         customers.setItems(customer);
     }
 
-    @Override
-    public void setDependencies(Object... args) {
-        cs = (ICustomerService) args[0];
-        gs = (IGameService) args[1];
-        rs = (IRentalService) args[2];
-        setup();
-    }
-
     private void setup(){
         getCustomers();
+    }
+
+    @Override
+    public void setDependencies(ArrayList<IService> services) {
+        cs = (ICustomerService) services.get(0);
+        gs = (IGameService) services.get(1);
+        rs = (IRentalService) services.get(2);
+        setup();
     }
 }
