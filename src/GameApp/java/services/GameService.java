@@ -13,9 +13,11 @@ import java.util.ArrayList;
 //responsible for creating Game objects from arguments given to it by the front end
 //It then uses these arguments to create Game objects and then passes them to the Data Repository
 //which is responsible for checking that they exist or are being repaired etc...
-public class GameService implements IGameService{
+public class GameService extends SuperService implements IGameService{
     ConsoleService cs = new ConsoleService();
-    public ArrayList<Game> allGames(){
+
+    @Override
+    public ArrayList getAll(){
         return GameRepository.getAllGames();
     }
 

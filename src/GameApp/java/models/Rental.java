@@ -56,4 +56,13 @@ public class Rental {
     public double getTotalCost(){
         return totalCost;
     }
+
+    @Override
+    public String toString(){
+        return String.format("Rental ID: %s\n" +
+                "Customer ID: %s\n" +
+                "Customer Name: %s\n" +
+                "Return Date: %s", id, customer.getId(), customer.getFullName(), returnDate);
+
+    }
 }

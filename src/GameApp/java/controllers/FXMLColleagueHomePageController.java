@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -84,6 +85,10 @@ public class FXMLColleagueHomePageController implements Initializable, AssignMul
         router.changeRoute(RouteNames.SHOW_CONSOLES, event);
     }
     @FXML
+    private void handleShowAllRentalsAction(ActionEvent event) throws IOException{
+        router.changeRoute(RouteNames.ALL_RENTALS, event);
+    }
+    @FXML
     private void handleSignOutAction(ActionEvent event) throws IOException{//changes route to customer home page
         router.changeRoute(RouteNames.CUSTOMER_HOME_PAGE, event);
     }
@@ -117,7 +122,7 @@ public class FXMLColleagueHomePageController implements Initializable, AssignMul
         }
     }
     private void getCustomers(){//displays all customers into the listview
-        ObservableList customer = FXCollections.observableArrayList(cs.allCustomers());
+        ObservableList customer = FXCollections.observableArrayList(cs.getAll());
         customers.setItems(customer);
     }
 

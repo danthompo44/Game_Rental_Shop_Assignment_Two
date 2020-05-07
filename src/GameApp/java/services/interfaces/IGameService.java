@@ -4,10 +4,11 @@ import GameApp.java.general.exceptions.DoesNotExistException;
 import GameApp.java.general.exceptions.NotAvailableException;
 import GameApp.java.models.Console;
 import GameApp.java.models.Game;
+
 import java.util.ArrayList;
 
 public interface IGameService extends IService{
-    public ArrayList<Game> allGames();
+    public ArrayList getAll();
     public ArrayList<Game> availableGames();
     public void editGame(Object... args) throws Exception;
     public void removeGame(Game game);

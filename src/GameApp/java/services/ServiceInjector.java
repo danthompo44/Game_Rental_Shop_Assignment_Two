@@ -3,6 +3,7 @@ package GameApp.java.services;
 import GameApp.java.controllers.interfaces.AssignMultipleDependencies;
 import GameApp.java.routers.RouteNames;
 import GameApp.java.services.interfaces.IService;
+
 import java.util.ArrayList;
 
 public class ServiceInjector {
@@ -12,6 +13,7 @@ public class ServiceInjector {
             case EDIT_CUSTOMER:
                 return new CustomerService();
             case SHOW_RENTAL:
+            case ALL_RENTALS:
                 return new RentalService();
             case EDIT_GAME:
             case SHOW_GAMES:

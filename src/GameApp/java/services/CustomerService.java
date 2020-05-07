@@ -11,8 +11,9 @@ import java.util.ArrayList;
 //responsible for creating Customer objects from arguments given to it by the front end
 //It then uses these arguments to create Customer objects and then passes them to the Data Repository
 //which is responsible for checking that they exist or are being repaired etc...
-public class CustomerService implements ICustomerService {
-    public ArrayList<Customer> allCustomers(){
+public class CustomerService extends SuperService implements ICustomerService {
+    @Override
+    public ArrayList getAll(){
         return CustomerRepository.getAllCustomers();
     }
 

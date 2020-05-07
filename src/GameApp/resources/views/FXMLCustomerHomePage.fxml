@@ -30,7 +30,7 @@
     </center>
     <bottom>
         <HBox>
-            <CheckBox text="Games By Console" fx:id="gamesByConsoleCheckbox" onAction="#handleGamesByConsoleCheckboxAction"/>
+            <CheckBox fx:id="checkbox" text="Games by console?" onAction="#handleCheckBoxAction" selected="true"/>
         </HBox>
     </bottom>
 </BorderPane>

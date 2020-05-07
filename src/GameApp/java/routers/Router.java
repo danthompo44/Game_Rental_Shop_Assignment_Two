@@ -1,6 +1,8 @@
 package GameApp.java.routers;
 
-import GameApp.java.controllers.interfaces.*;
+import GameApp.java.controllers.interfaces.AssignMultipleDependencies;
+import GameApp.java.controllers.interfaces.AssignServiceDependency;
+import GameApp.java.controllers.interfaces.IControllerCommunication;
 import GameApp.java.general.ScreenHelp;
 import GameApp.java.services.ServiceInjector;
 import GameApp.java.services.interfaces.IService;
@@ -12,7 +14,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.nio.channels.IllegalSelectorException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +38,7 @@ public class Router {
         put(RouteNames.SHOW_RENTAL, VIEW_PATH+"FXMLShowRental.fxml");
         put(RouteNames.EDIT_GAME, VIEW_PATH+"FXMLEditGame.fxml");
         put(RouteNames.EDIT_CONSOLE, VIEW_PATH+"FXMLEditConsole.fxml");
+        put(RouteNames.ALL_RENTALS, VIEW_PATH+"FXMLShowAllRentals.fxml");
     }};
 
     //Takes an action event and a RouteNames(enum) object, retrieves the path from the routesMap method above.

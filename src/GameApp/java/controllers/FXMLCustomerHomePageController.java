@@ -43,9 +43,10 @@ public class FXMLCustomerHomePageController implements Initializable, AssignMult
     @FXML
     ListView gamesOutput;
     @FXML
-    CheckBox gamesByConsoleCheckbox;
-    @FXML
     Label consolesLabel, gamesLabel;
+    @FXML
+    CheckBox checkbox;
+
     @FXML
     private void handleSelectConsoleMouseClickAction(MouseEvent event){//method for available console depending on what console is selected
         showAvailableGames();
@@ -55,7 +56,7 @@ public class FXMLCustomerHomePageController implements Initializable, AssignMult
         router.changeRoute(RouteNames.COLLEAGUE_SIGN_IN, event);
     }
     @FXML
-    private void handleGamesByConsoleCheckboxAction(ActionEvent event){
+    private void handleCheckBoxAction(ActionEvent event){
         showAvailableGames();
     }
 
@@ -66,29 +67,23 @@ public class FXMLCustomerHomePageController implements Initializable, AssignMult
     }
 
     private void showAvailableGames(){
-        if(gamesByConsoleCheckbox.isSelected()){
-            ObservableList availableGamesByPlatform;
+        ObservableList games;
+        if(checkbox.isSelected()){
             try{
-                availableGamesByPlatform = FXCollections.observableArrayList(gs.getAvailableGamesByConsole(cs.getConsoleByID(ConsoleViewAdapter.getID(consolesOutput))));
-                gamesOutput.setItems(availableGamesByPlatform);
-                gamesLabel.setText("Games By Console");
+                games = FXCollections.observableArrayList(gs.getAvailableGamesByConsole(cs.getConsoleByID(ConsoleViewAdapter.getID(consolesOutput))));
+                gamesOutput.setItems(games);
+                gamesLabel.setText("Available Games For Selected Console");
             }
             catch(DoesNotExistException dne){//exception should never be seen, here for completeness
                 AlertMessage.showMessage(Alert.AlertType.INFORMATION, dne.getMessage());
             }
         }
         else{
-            ObservableList games;
             games = FXCollections.observableArrayList(gs.availableGames());
             gamesOutput.setItems(games);
             gamesLabel.setText("All Available Games");
         }
-        if(cs.availableConsoles().size()==0){
-            consolesLabel.setText("Consoles: None Are Available");
-        }
-        if(gs.availableGames().size()==0){
-            gamesLabel.setText("Games: None Are Available");
-        }
+
     }
 
     @Override

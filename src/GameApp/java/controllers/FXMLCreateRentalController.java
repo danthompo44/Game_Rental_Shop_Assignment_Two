@@ -49,7 +49,7 @@ public class FXMLCreateRentalController implements Initializable, IControllerCom
     @FXML
     private void handleSubmitAction(ActionEvent event) throws IOException{//method for creating a rental after checks are complete and changing routes to colleague home page
         if(!basketView.getItems().isEmpty()){//only runs if the basket has products within it
-            rs.addRental(cs.getCustomerById(customerID.getText()), pbs.allBasketItems());
+            rs.addRental(cs.getCustomerById(customerID.getText()), pbs.getAll());
             AlertMessage.showMessage(Alert.AlertType.INFORMATION, RentalViewAdapter.confirmationString(customerID.getText()));
             router.changeRoute(RouteNames.COLLEAGUE_HOME, event);
         }
@@ -156,7 +156,7 @@ public class FXMLCreateRentalController implements Initializable, IControllerCom
 
     private void showBasketItems(){//displays basket items in the listview
         ObservableList basket;
-        basket = FXCollections.observableArrayList(pbs.allBasketItems());
+        basket = FXCollections.observableArrayList(pbs.getAll());
         basketView.setItems(basket);
     }
 

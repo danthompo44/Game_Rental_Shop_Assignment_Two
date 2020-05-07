@@ -11,8 +11,9 @@ import java.util.ArrayList;
 //responsible for creating Console objects from arguments given to it by the front end
 //It then uses these arguments to create Console objects and then passes them to the Data Repository
 //which is responsible for checking that they exist or are being repaired etc...
-public class ConsoleService implements IConsoleService {
-    public ArrayList<Console> allConsoles() {
+public class ConsoleService extends SuperService implements IConsoleService {
+    @Override
+    public ArrayList getAll() {
         return ConsoleRepository.getAllConsoles();
     }
 

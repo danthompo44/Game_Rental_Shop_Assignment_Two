@@ -82,7 +82,7 @@ public class FXMLShowConsolesController implements Initializable, AssignServiceD
     }
 
     private void showProducts() {
-        ObservableList fullConsoleList = FXCollections.observableArrayList(cs.allConsoles());
+        ObservableList fullConsoleList = FXCollections.observableArrayList(cs.getAll());
         ObservableList repairConsoleList = FXCollections.observableArrayList(cs.getBrokenConsoles());
         ObservableList loanedConsoleList = FXCollections.observableArrayList(cs.getLoanedConsoles());
 

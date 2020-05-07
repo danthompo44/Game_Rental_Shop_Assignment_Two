@@ -5,6 +5,7 @@ import GameApp.java.general.CostFormatter;
 import GameApp.java.general.exceptions.DoesNotExistException;
 import GameApp.java.models.Rental;
 import GameApp.java.services.RentalService;
+import javafx.scene.control.ListView;
 
 public class RentalViewAdapter {
     private static String confirmationMessage;
@@ -25,5 +26,9 @@ public class RentalViewAdapter {
 
     public static void getCustomerDetails(Rental r, IControllerCommunication cc){
         cc.detailsToEdit(r.getCustomer().getFullName(), r.getId(), r.getReturnDate(), r.getTotalCost(), r.getProducts());
+    }
+
+    public static String getRentalId(ListView<Rental> lv){
+        return lv.getSelectionModel().getSelectedItem().getId();
     }
 }

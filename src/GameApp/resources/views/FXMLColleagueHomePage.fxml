@@ -34,6 +34,7 @@
             <Button text="Add Customer" onAction="#handleAddCustomersAction"/>
             <Button text="Show All Consoles" onAction="#handleShowConsolesAction"/>
             <Button text="Show All Games" onAction="#handleShowGamesAction"/>
+            <Button text="Show All Active Rentals" onAction="#handleShowAllRentalsAction"/>
         </HBox>
     </bottom>
 </BorderPane>

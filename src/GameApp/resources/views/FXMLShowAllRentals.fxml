@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="GameApp.java.controllers.FXMLShowAllRentalsController"
+            styleClass="Window">
+    <top>
+        <HBox>
+            <Label styleClass="Heading" text="All Current Rentals"/>
+        </HBox>
+    </top>
+    <center>
+        <VBox>
+            <Label text="All Currently Active Rentals"/>
+            <ScrollPane maxHeight="250" maxWidth="350">
+                <content>
+                    <ListView fx:id="allRentals"/>
+                </content>
+            </ScrollPane>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox>
+            <Button text="Back" onAction="#handleBackAction"/>
+            <Button text="Return Rental" onAction="#handleReturnRental"/>
+        </HBox>
+    </bottom>
+</BorderPane>

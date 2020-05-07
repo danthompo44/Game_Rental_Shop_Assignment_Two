@@ -80,7 +80,7 @@ public class FXMLShowGamesController implements Initializable, AssignServiceDepe
 
 
     private void showProducts() {
-        ObservableList fullGameList = FXCollections.observableArrayList(gs.allGames());
+        ObservableList fullGameList = FXCollections.observableArrayList(gs.getAll());
         ObservableList repairGameList = FXCollections.observableArrayList(gs.getBrokenGames());
         ObservableList loanedGameList = FXCollections.observableArrayList(gs.getLoanedGames());
 
