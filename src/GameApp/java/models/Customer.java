@@ -1,18 +1,19 @@
 package GameApp.java.models;
 
-public class Customer {
+import GameApp.java.models.idFactory.IId;
+import GameApp.java.models.idFactory.IdFactory;
+
+public class Customer implements IId {
     private final String id;
     private String forename;
     private String surname;
     private String address;
-    private static int nextId = 1000;
 
     public Customer(String forename, String surname, String address){
         this.forename = forename;
         this.surname = surname;
         this.address = address;
-        id = "CU" + nextId;
-        nextId++;
+        id = IdFactory.getId(this).getId();
     }
     public Customer(String id, String forename, String surname, String address){
         this.id = id;
@@ -21,6 +22,7 @@ public class Customer {
         this.address = address;
     }
 
+    @Override
     public String getId() {
         return id;
     }

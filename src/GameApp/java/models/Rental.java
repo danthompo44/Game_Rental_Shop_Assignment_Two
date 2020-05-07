@@ -1,20 +1,20 @@
 package GameApp.java.models;
 
 import GameApp.java.general.DateHelp;
+import GameApp.java.models.idFactory.IId;
+import GameApp.java.models.idFactory.IdFactory;
 
 import java.util.ArrayList;
 
-public class Rental {
+public class Rental implements IId {
     private String id;
-    private static int idSeed = 1000;
     private ArrayList<ProductBehaviour> rentalItems = new ArrayList<>();
     private Customer customer;
     private String returnDate;
     private double totalCost;
 
     public Rental(Customer customer, ArrayList<ProductBehaviour> products) {
-        id = "RE" + idSeed;
-        idSeed++;
+        id = IdFactory.getId(this).getId();
         this.customer = customer;
         rentalItems.addAll(products);
         returnDate = DateHelp.getOneMonthLater();
@@ -24,6 +24,7 @@ public class Rental {
         }
     }
 
+    @Override
     public String getId(){
         return id;
     }
