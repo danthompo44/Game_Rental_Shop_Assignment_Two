@@ -1,12 +1,9 @@
 package GameApp.java.services;
 
 import GameApp.java.general.exceptions.DoesNotExistException;
-import GameApp.java.models.Customer;
-import GameApp.java.models.IProductRental;
-import GameApp.java.models.Rental;
+import GameApp.java.models.*;
 import GameApp.java.repositories.RentalRepository;
 import GameApp.java.services.interfaces.IRentalService;
-
 import java.util.ArrayList;
 
 //responsible for creating Rental objects from arguments given to it by the front end
@@ -28,7 +25,7 @@ public class RentalService implements IRentalService {
 
     private Rental createRentalFromParameters(Object... args){
         Customer customer = (Customer) args[0];
-        ArrayList<IProductRental> products = (ArrayList<IProductRental>) args[1];
+        ArrayList<ProductBehaviour> products = (ArrayList<ProductBehaviour>) args[1];
 
         return new Rental(customer, products);
     }

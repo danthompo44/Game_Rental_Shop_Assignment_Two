@@ -49,9 +49,9 @@ public class ConsoleRepository {
         for (Console c : getAllConsoles()) {
             if (c.getId().equals(console.getId())) {
                 c.setDescription(console.getDescription());
-                c.setRentalCost(console.getRentalCost());
+                c.setCost(console.getCost());
                 c.setIsBeingRepaired(console.isBeingRepaired());
-                c.setIsRented(console.isRented());
+                c.setIs(console.is());
             }
         }
     }//method for editing a Console within the method getAllConsoles() ArrayList, if the Consoles ID matched that of the
@@ -65,7 +65,7 @@ public class ConsoleRepository {
     public static ArrayList <Console> getLoanedConsoles(){
         ArrayList<Console> loanedConsoles = new ArrayList<>();
         for(Console c: getAllConsoles()){
-            if(c.isRented()){
+            if(c.is()){
                 loanedConsoles.add(c);
             }
         }

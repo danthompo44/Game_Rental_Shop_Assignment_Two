@@ -65,7 +65,7 @@ public class FXMLShowConsolesController implements Initializable, AssignServiceD
     @FXML
     private void handleDeleteAction(ActionEvent event){
         if(consoles.getSelectionModel().getSelectedIndex()!=-1){
-            if(!(ConsoleViewAdapter.getConsoleObject(consoles)).isRented()){
+            if(!(ConsoleViewAdapter.getConsoleObject(consoles)).is()){
                 if(AlertMessage.showConfirmationMessage("Are you sure you want to delete " + ConsoleViewAdapter.getConsoleDescription(consoles) +"?")){
                     cs.removeConsole(ConsoleViewAdapter.getConsoleObject(consoles));
                     showProducts();

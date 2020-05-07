@@ -56,8 +56,8 @@ public class GameRepository {
         for (Game g : getAllGames()) {
             if (g.getId().equals(game.getId())) {
                 g.setDescription(game.getDescription());
-                g.setIsRented(game.isRented());
-                g.setRentalCost(game.getRentalCost());
+                g.setIs(game.is());
+                g.setCost(game.getCost());
                 g.setIsBeingRepaired(game.isBeingRepaired());
             }
         }
@@ -71,7 +71,7 @@ public class GameRepository {
     public static ArrayList <Game> getLoanedGames(){
         ArrayList<Game> loanedGames = new ArrayList<>();
         for(Game g: getAllGames()){
-            if(g.isRented()){
+            if(g.is()){
                 loanedGames.add(g);
             }
         }

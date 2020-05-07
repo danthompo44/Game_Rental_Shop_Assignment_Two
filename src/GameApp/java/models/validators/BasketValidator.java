@@ -3,7 +3,7 @@ package GameApp.java.models.validators;
 import GameApp.java.general.exceptions.LimitReachedException;
 import GameApp.java.models.Console;
 import GameApp.java.models.Game;
-import GameApp.java.models.IProduct;
+import GameApp.java.models.ProductDetails;
 
 public class BasketValidator {
     private static final int CONSOLE_LIMIT = 1;
@@ -11,7 +11,7 @@ public class BasketValidator {
     private static int gameCount = 0;
     private static int consoleCount = 0;
 
-    public static void addProduct(IProduct product) throws LimitReachedException{
+    public static void addProduct(ProductDetails product) throws LimitReachedException{
         if(productIsAConsole(product)){
             if(consoleLimitIsNotReached()){
                 consoleCount++;
@@ -29,7 +29,7 @@ public class BasketValidator {
             }
         }
     }
-    public static void removeProduct(IProduct product){
+    public static void removeProduct(ProductDetails product){
         if(productIsAConsole(product)){
             consoleCount--;
         }
@@ -43,11 +43,11 @@ public class BasketValidator {
         consoleCount=0;
     }
 
-    private static boolean productIsAConsole(IProduct product){
+    private static boolean productIsAConsole(ProductDetails product){
         return product instanceof Console;
     }
 
-    private static boolean productIsAGame(IProduct product){
+    private static boolean productIsAGame(ProductDetails product){
         return product instanceof Game;
     }
 

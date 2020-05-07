@@ -7,20 +7,20 @@ import java.util.ArrayList;
 public class Rental {
     private String id;
     private static int idSeed = 1000;
-    private ArrayList<IProductRental> rentalItems = new ArrayList<>();
+    private ArrayList<ProductBehaviour> rentalItems = new ArrayList<>();
     private Customer customer;
     private String returnDate;
     private double totalCost;
 
-    public Rental(Customer customer, ArrayList<IProductRental> products){
+    public Rental(Customer customer, ArrayList<ProductBehaviour> products) {
         id = "RE" + idSeed;
         idSeed++;
         this.customer = customer;
         rentalItems.addAll(products);
         returnDate = DateHelp.getOneMonthLater();
-        setTotalCost(products);
-        for(IProductRental p: products){
-            p.addToRental();
+        setTotalCost((products));
+        for(ProductBehaviour p: products){
+            p.setIs(true);
         }
     }
 
@@ -32,13 +32,13 @@ public class Rental {
             return customer;
     }
 
-    public ArrayList<IProductRental> getProducts(){
+    public ArrayList<ProductBehaviour> getProducts(){
         return rentalItems;
     }
 
     public void returnRental(){
-        for(IProductRental p: rentalItems){
-            p.removeFromRental();
+        for(ProductBehaviour p: rentalItems){
+            p.setIs(false);
         }
     }
 
@@ -46,10 +46,10 @@ public class Rental {
         return returnDate;
     }
 
-    private void setTotalCost(ArrayList<IProductRental> products){
+    private void setTotalCost(ArrayList<ProductBehaviour> products){
         totalCost = 0.0;
-        for(IProductRental p: products){
-            totalCost+=p.getRentalCost();
+        for(ProductBehaviour p: products){
+            totalCost+=p.getCost();
         }
     }
 

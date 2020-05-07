@@ -19,6 +19,6 @@ public class GameViewAdapter {
     }
 
     public static void getGameDetails(Game g, IControllerCommunication cc){
-        cc.detailsToEdit(g.getId(), g.getDescription(), g.getRentalCost(), g.getConsole().getId(), g.getConsole().getDescription(), g.isRented(), g.isBeingRepaired());
+        cc.detailsToEdit(g.getId(), g.getDescription(), g.getCost(), g.getConsole().getId(), g.getConsole().getDescription(), g.is(), g.isBeingRepaired());
     }
 }

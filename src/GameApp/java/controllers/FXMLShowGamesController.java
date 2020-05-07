@@ -63,7 +63,7 @@ public class FXMLShowGamesController implements Initializable, AssignServiceDepe
     @FXML
     private void handleDeleteAction(ActionEvent event){
         if(games.getSelectionModel().getSelectedIndex()!=-1){
-            if(!(GameViewAdapter.getGameObject(games)).isRented()){
+            if(!(GameViewAdapter.getGameObject(games)).is()){
                 if(AlertMessage.showConfirmationMessage("Are you sure you want to delete " + GameViewAdapter.getGameDescription(games) + "?")){
                     gs.removeGame(GameViewAdapter.getGameObject(games));
                     showProducts();

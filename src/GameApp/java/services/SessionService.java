@@ -1,6 +1,8 @@
 package GameApp.java.services;
 
+import GameApp.java.general.AlertMessage;
 import GameApp.java.models.*;
+import javafx.scene.control.Alert;
 
 import java.util.ArrayList;
 
@@ -70,15 +72,14 @@ public class SessionService {//Used to create Dummy Data when the app starts up
     }//adds dummy customer data to an array then pass that array into an array list
 
     private void populateRentals(){
-        ArrayList<IProductRental> productsRentalOne = new ArrayList<>();
+        ArrayList<ProductBehaviour> productsRentalOne = new ArrayList<>();
         productsRentalOne.add(consoles.get(1));//add TurboGrafx
         productsRentalOne.add(games.get(1));//add R Type
-        ArrayList<IProductRental> productsRentalTwo = new ArrayList<>();
+        ArrayList<ProductBehaviour> productsRentalTwo = new ArrayList<>();
         productsRentalTwo.add(games.get(4));//add Gran Turismo 3
         productsRentalTwo.add(games.get(6));//add Mario Kart
-
-       Rental r1 = new Rental(customers.get(1), productsRentalOne);
-       Rental r2 = new Rental(customers.get(3), productsRentalTwo);
+        Rental r1 = new Rental(customers.get(1), productsRentalOne);
+        Rental r2 = new Rental(customers.get(3), productsRentalTwo);
        rentals.add(r1);
        rentals.add(r2);
     }
