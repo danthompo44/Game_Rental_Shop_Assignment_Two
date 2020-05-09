@@ -3,14 +3,13 @@ package GameApp.java.repositories;
 import GameApp.App;
 import GameApp.java.general.exceptions.DoesNotExistException;
 import GameApp.java.models.Console;
-import GameApp.java.services.SessionService;
 
 import java.util.ArrayList;
 
 //simulates a DB communicating with a public object - session
 //Acts like the middle man, retrieves all Consoles Objects stored in the database, and can process arguments given
 // to it's methods and communicating between the back end (Make-shift DB) and the front end
-public class ConsoleRepository {
+public class ConsoleRepository{
     public static ArrayList<Console> getAllConsoles() {
         return App.session.getConsoles();
     }//returns all consoles within the SessionService class getConsoles()

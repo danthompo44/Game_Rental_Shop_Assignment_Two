@@ -4,7 +4,7 @@ import GameApp.java.models.Console;
 import GameApp.java.models.Game;
 import GameApp.java.models.Rental;
 
-public class IdFactory {
+public abstract class IdFactory {
     public static IId getId(IId object) {
         if (object instanceof Console) {
             return new ConsoleId();

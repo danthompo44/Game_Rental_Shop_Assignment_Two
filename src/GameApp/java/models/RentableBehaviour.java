@@ -28,4 +28,6 @@ public class RentableBehaviour implements ProductBehaviour {
     public void setIs(boolean is) {
         isRented = is;
     }
+
+
 }

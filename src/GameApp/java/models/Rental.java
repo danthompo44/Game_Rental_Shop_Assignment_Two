@@ -8,19 +8,19 @@ import java.util.ArrayList;
 
 public class Rental implements IId {
     private String id;
-    private ArrayList<ProductBehaviour> rentalItems = new ArrayList<>();
+    private ArrayList<Product> rentalItems = new ArrayList<>();
     private Customer customer;
     private String returnDate;
     private double totalCost;
 
-    public Rental(Customer customer, ArrayList<ProductBehaviour> products) {
+    public Rental(Customer customer, ArrayList<Product> products) throws Exception{
         id = IdFactory.getId(this).getId();
         this.customer = customer;
         rentalItems.addAll(products);
         returnDate = DateHelp.getOneMonthLater();
         setTotalCost((products));
-        for(ProductBehaviour p: products){
-            p.setIs(true);
+        for(Product p: products){
+            p.executeBehaviour();
         }
     }
 
@@ -33,12 +33,12 @@ public class Rental implements IId {
             return customer;
     }
 
-    public ArrayList<ProductBehaviour> getProducts(){
+    public ArrayList<Product> getProducts(){
         return rentalItems;
     }
 
     public void returnRental(){
-        for(ProductBehaviour p: rentalItems){
+        for(Product p: rentalItems){
             p.setIs(false);
         }
     }
@@ -47,7 +47,7 @@ public class Rental implements IId {
         return returnDate;
     }
 
-    private void setTotalCost(ArrayList<ProductBehaviour> products){
+    private void setTotalCost(ArrayList<Product> products){
         totalCost = 0.0;
         for(ProductBehaviour p: products){
             totalCost+=p.getCost();

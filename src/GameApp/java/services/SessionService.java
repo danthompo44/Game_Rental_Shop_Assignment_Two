@@ -32,7 +32,7 @@ public class SessionService {//Used to create Dummy Data when the app starts up
         double [] cost = {10, 15, 20, 10, 15};
         BitDepth [] bitDepth = {BitDepth.EIGHT, BitDepth.EIGHT, BitDepth.SIXTEEN, BitDepth.SIXTEEN, BitDepth.HUNDRED_TWENTY_EIGHT};
         FormFactor [] formFactor = {FormFactor.STANDARD, FormFactor.HANDHELD, FormFactor.STANDARD, FormFactor.HANDHELD, FormFactor.STANDARD};
-        boolean [] isRented = {false, true, false, false, false};
+        boolean [] isRented = {false, false, false, false, false};
         boolean [] isBeingRepaired = {false, false, false, true, false};
         for(int i = 0; i<cost.length; i++){
             Console c = new Console(description[i], cost[i], bitDepth[i], formFactor[i], isRented[i], isBeingRepaired[i]);
@@ -45,7 +45,7 @@ public class SessionService {//Used to create Dummy Data when the app starts up
         String [] description = {"Space Invaders", "R Type", "Sunset Riders",
                                  "Xybots", "Gran Turismo 3"};
         double [] cost = {5,5,5,5,5};
-        boolean [] isRented = {false, true, false, false, true};
+        boolean [] isRented = {false, false, false, false, false};
         boolean [] isBeingRepaired = {false, false, false, true, false};
         for(int i = 0; i<cost.length; i++){
             Game g = new Game(description[i], cost[i], consoles.get(i), isRented[i], isBeingRepaired[i]);
@@ -53,7 +53,7 @@ public class SessionService {//Used to create Dummy Data when the app starts up
         }
 
         Game gameMissile = new Game("Missile Command", 5, consoles.get(0), false, false);
-        Game gameMarioKart = new Game("Super Mario Kart", 10, consoles.get(2), true, false);
+        Game gameMarioKart = new Game("Super Mario Kart", 10, consoles.get(2), false, false);
         games.add(gameMissile);
         games.add(gameMarioKart);
 
@@ -72,16 +72,21 @@ public class SessionService {//Used to create Dummy Data when the app starts up
     }//adds dummy customer data to an array then pass that array into an array list
 
     private void populateRentals(){
-        ArrayList<ProductBehaviour> productsRentalOne = new ArrayList<>();
+        ArrayList<Product> productsRentalOne = new ArrayList<>();
         productsRentalOne.add(consoles.get(1));//add TurboGrafx
         productsRentalOne.add(games.get(1));//add R Type
-        ArrayList<ProductBehaviour> productsRentalTwo = new ArrayList<>();
+        ArrayList<Product> productsRentalTwo = new ArrayList<>();
         productsRentalTwo.add(games.get(4));//add Gran Turismo 3
         productsRentalTwo.add(games.get(6));//add Mario Kart
-        Rental r1 = new Rental(customers.get(1), productsRentalOne);
-        Rental r2 = new Rental(customers.get(3), productsRentalTwo);
-       rentals.add(r1);
-       rentals.add(r2);
+        try{
+            Rental r1 = new Rental(customers.get(1), productsRentalOne);
+            Rental r2 = new Rental(customers.get(3), productsRentalTwo);
+            rentals.add(r1);
+            rentals.add(r2);
+        }
+        catch(Exception e){
+            AlertMessage.showMessage(Alert.AlertType.INFORMATION, e.getMessage());
+        }
     }
 
     public ArrayList<Game> getGames() {

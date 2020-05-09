@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public interface IRentalService extends IService{
     public ArrayList getAll();
-    public void addRental(Object... args);
+    public void addRental(Object... args) throws Exception;
     public void returnRentalById(String id);
     public Rental getRentalObjectFromCustomerId(String id) throws DoesNotExistException;
     public boolean customerHasExistingRental(String id);

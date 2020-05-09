@@ -1,19 +1,19 @@
 package GameApp.java.models;
 
-public class Game extends Product implements Repairable {
+import GameApp.java.general.exceptions.GameUnavailableException;
+
+public class Game extends Product {
     private Console console;
-    private boolean isBeingRepaired;
+
 
     public Game(String description, double rentalCost, Console console, boolean isRented, boolean isBeingRepaired) {
-        super(description, new RentableBehaviour(rentalCost, isRented));
+        super(description, new RentableBehaviour(rentalCost, isRented),  isBeingRepaired);
         this.console = console;
-        this.isBeingRepaired = isBeingRepaired;
     }
 
     public Game(String id, String description, double rentalCost, Console console, boolean isRented, boolean isBeingRepaired){
-        super(id, description, new RentableBehaviour(rentalCost, isRented));
+        super(id, description, new RentableBehaviour(rentalCost, isRented),  isBeingRepaired);
         this.console = console;
-        this.isBeingRepaired = isBeingRepaired;
     }
 
     public Console getConsole(){
@@ -22,28 +22,16 @@ public class Game extends Product implements Repairable {
 
 
     @Override
-    public boolean isBeingRepaired() {
-        return isBeingRepaired;
+    void getMessage() throws Exception {
+        if(!isAvailable()){
+            throw new GameUnavailableException("Sorry, this Game is unavailable!");
+        }
     }
-
-
-    @Override
-    public void setIsBeingRepaired(boolean isBeingRepaired) {
-        this.isBeingRepaired = isBeingRepaired;
-    }
-
-    @Override
-    public boolean isAvailable() {
-        return !super.is()&&!isBeingRepaired;
-    }
-
-
 
     @Override
     public String toString(){
-        return super.toString() + console.getDescription() + "\n";
+        return super.toString() + "Console: " + console.getDescription() + "\n";
     }
 
 }
-
 

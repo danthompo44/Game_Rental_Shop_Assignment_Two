@@ -2,7 +2,7 @@ package GameApp.java.services;
 
 import GameApp.java.general.exceptions.DoesNotExistException;
 import GameApp.java.models.Customer;
-import GameApp.java.models.ProductBehaviour;
+import GameApp.java.models.Product;
 import GameApp.java.models.Rental;
 import GameApp.java.repositories.RentalRepository;
 import GameApp.java.services.interfaces.IRentalService;
@@ -19,7 +19,7 @@ public class RentalService extends SuperService implements IRentalService {
         return RentalRepository.getAllRentals();
     }
 
-    public void addRental(Object... args){
+    public void addRental(Object... args) throws Exception{
         Rental rental = createRentalFromParameters(args);
         RentalRepository.addRental(rental);
     }
@@ -32,12 +32,11 @@ public class RentalService extends SuperService implements IRentalService {
         return RentalRepository.getRentalFromCustomerId(id);
     }
 
-    private Rental createRentalFromParameters(Object... args){
+    private Rental createRentalFromParameters(Object... args) throws Exception{
         Customer customer = (Customer) args[0];
-        ArrayList<ProductBehaviour> products = (ArrayList<ProductBehaviour>) args[1];
-
+        ArrayList<Product> products = (ArrayList<Product>) args[1];
         return new Rental(customer, products);
-    }
+            }
 
     public boolean customerHasExistingRental(String id){
         return RentalRepository.customerHasExistingRental(id);
