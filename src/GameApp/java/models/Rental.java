@@ -14,7 +14,7 @@ public class Rental implements IId {
     private double totalCost;
 
     public Rental(Customer customer, ArrayList<Product> products) throws Exception{
-        id = IdFactory.getId(this).getId();
+        id = IdFactory.createRentalId().getId();
         this.customer = customer;
         rentalItems.addAll(products);
         returnDate = DateHelp.getOneMonthLater();
@@ -49,7 +49,7 @@ public class Rental implements IId {
 
     private void setTotalCost(ArrayList<Product> products){
         totalCost = 0.0;
-        for(ProductBehaviour p: products){
+        for(Product p: products){
             totalCost+=p.getCost();
         }
     }

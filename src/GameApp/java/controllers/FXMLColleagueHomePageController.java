@@ -29,34 +29,37 @@ public class FXMLColleagueHomePageController implements Initializable, AssignMul
     private ICustomerService cs;
     private IGameService gs;
     private IRentalService rs;
-    @FXML
-    private ListView customers;
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
+    public void setDependencies(ArrayList<IService> services) {
+        cs = (ICustomerService) services.get(0);
+        gs = (IGameService) services.get(1);
+        rs = (IRentalService) services.get(2);
+        setup();
     }
-
     @FXML
     private void handleCreateRentalAction(ActionEvent event) throws IOException{//Method for creating a new rental
-
         try{
             gs.noGamesAreAvailable();
             if(customers.getSelectionModel().getSelectedIndex()!=-1){//checks if a customer is selected in the listview displayed
                 if(!rs.customerHasExistingRental(CustomerViewAdapter.getID(customers))){//checks if a customer already has a rental
-                    this.router.changeRouteWithDetails(RouteNames.CREATE_RENTAL, event, CustomerViewAdapter.getID(customers));
+                    this.router.changeRouteWithDetails(RouteNames.CREATE_RENTAL, event,
+                            CustomerViewAdapter.getID(customers));
                 }
                 else{//displays message if customer already has a rental
                     AlertMessage.showMessage(Alert.AlertType.INFORMATION, "Customer already has a rental!");
                 }
             }
             else{//displays message if a customer hasn't been selected
-                AlertMessage.showMessage(Alert.AlertType.INFORMATION, "Please select a customer to begin creating a rental!");
+                AlertMessage.showMessage(Alert.AlertType.INFORMATION,
+                        "Please select a customer to begin creating a rental!");
             }
         }
         catch (NotAvailableException nae){
             AlertMessage.showMessage(Alert.AlertType.INFORMATION, nae.getMessage());
         }
     }
+    @FXML
+    private ListView customers;
     @FXML
     private void handleAddCustomersAction(ActionEvent event) throws IOException{//method for switching views to the add customer page
         router.changeRoute(RouteNames.ADD_CUSTOMER, event);
@@ -130,11 +133,10 @@ public class FXMLColleagueHomePageController implements Initializable, AssignMul
         getCustomers();
     }
 
+
+
     @Override
-    public void setDependencies(ArrayList<IService> services) {
-        cs = (ICustomerService) services.get(0);
-        gs = (IGameService) services.get(1);
-        rs = (IRentalService) services.get(2);
-        setup();
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 }

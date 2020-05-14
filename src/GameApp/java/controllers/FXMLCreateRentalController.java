@@ -82,7 +82,12 @@ public class FXMLCreateRentalController implements Initializable, IControllerCom
 
     @FXML
     private void handleConsoleListViewAction(MouseEvent event) {//calls populate available games method when a new console is selected in the console listview
-        populateAvailableGamesByConsole(ConsoleViewAdapter.getID(consoles));
+        try{
+            populateAvailableGamesByConsole(ConsoleViewAdapter.getID(consoles));
+        }
+        catch(NullPointerException npe){
+            AlertMessage.showMessage(Alert.AlertType.INFORMATION, "Please select a console");
+        }
     }
 
     @FXML

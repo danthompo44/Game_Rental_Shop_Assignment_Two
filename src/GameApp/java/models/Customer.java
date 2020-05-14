@@ -13,7 +13,7 @@ public class Customer implements IId {
         this.forename = forename;
         this.surname = surname;
         this.address = address;
-        id = IdFactory.getId(this).getId();
+        id = IdFactory.createCustomerId().getId();
     }
     public Customer(String id, String forename, String surname, String address){
         this.id = id;

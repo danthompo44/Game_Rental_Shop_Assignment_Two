@@ -21,6 +21,11 @@ public class FXMLAddCustomerController implements Initializable, AssignServiceDe
     private Router router = new Router();
     private ICustomerService cs;
 
+    @Override
+    public void setDependency(IService service) {
+        cs = (ICustomerService) service;
+    }
+
     @FXML
     private TextField firstName, surname, address;
     @FXML
@@ -43,8 +48,5 @@ public class FXMLAddCustomerController implements Initializable, AssignServiceDe
 
     }
 
-    @Override
-    public void setDependency(IService service) {
-        cs = (ICustomerService) service;
-    }
+
 }

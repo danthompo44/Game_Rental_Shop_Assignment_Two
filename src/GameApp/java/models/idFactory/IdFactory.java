@@ -1,19 +1,20 @@
 package GameApp.java.models.idFactory;
 
-import GameApp.java.models.Console;
 import GameApp.java.models.Game;
-import GameApp.java.models.Rental;
 
 public abstract class IdFactory {
-    public static IId getId(IId object) {
-        if (object instanceof Console) {
-            return new ConsoleId();
-        } else if (object instanceof Game) {
+    public static IId createCustomerId(){
+        return new CustomerID();
+    }
+    public static IId createProductId(IId product){
+        if(product instanceof Game){
             return new GameId();
-        } else if (object instanceof Rental) {
-            return new RentalId();
-        } else {
-            return new CustomerID();
         }
+        else{
+            return new ConsoleId();
+        }
+    }
+    public static IId createRentalId(){
+        return new RentalId();
     }
 }

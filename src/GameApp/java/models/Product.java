@@ -11,7 +11,7 @@ public abstract class Product implements IId, ProductBehaviour, ProductDetails, 
 
 
     public Product(String description, ProductBehaviour behaviour, boolean isBeingRepaired){
-        id = IdFactory.getId(this).getId();
+        id = IdFactory.createProductId(this).getId();
         this.description = description;
         this.behaviour = behaviour;
         this.isBeingRepaired = isBeingRepaired;
